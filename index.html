@@ -58,10 +58,10 @@
     -webkit-text-size-adjust:100%;
   }
   .wrap{max-width:760px;margin:0 auto;padding:20px 16px 64px}
+  .view[hidden]{display:none}
 
-  header.app{text-align:center;padding:12px 0 20px}
-  header.app h1{margin:0;font-size:clamp(28px,7vw,40px);letter-spacing:-.02em}
-  header.app p{margin:6px 0 0;color:var(--ink-soft);font-size:15px}
+  h1{margin:0;font-size:clamp(30px,8vw,44px);letter-spacing:-.025em;text-wrap:balance}
+  .tagline{margin:8px 0 0;color:var(--ink-soft);font-size:16px}
 
   .card{
     background:var(--card);
@@ -73,7 +73,51 @@
   }
   .card h2{margin:0 0 14px;font-size:15px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-soft)}
 
-  /* --- portions --- */
+  .meta{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+  .badge{background:var(--accent-soft);color:var(--ink);border-radius:999px;padding:5px 12px;font-size:13px}
+
+  .btn{
+    appearance:none;border:1px solid var(--line);background:var(--bg-soft);color:var(--ink);
+    padding:12px 18px;border-radius:12px;font:inherit;font-size:15px;cursor:pointer;
+  }
+  .btn:hover{border-color:var(--accent)}
+  .btn:focus-visible,.round:focus-visible,.chip:focus-visible,.variant:focus-visible,.tick:focus-visible{
+    outline:2px solid var(--accent);outline-offset:2px;
+  }
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+  .btn.primary:hover{filter:brightness(1.05)}
+  .btn.wide{flex:1;min-width:190px;text-align:center}
+
+  /* ------------------ menu d'accueil ------------------ */
+  #menu{text-align:center;padding-top:26px}
+  .hero-mark{font-size:64px;line-height:1;margin-bottom:6px}
+  .menu-cards{display:grid;gap:12px;margin:26px 0 18px;text-align:left}
+  .variant{
+    display:flex;gap:14px;align-items:flex-start;width:100%;
+    background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);
+    padding:16px;cursor:pointer;font:inherit;color:var(--ink);text-align:left;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .variant:hover{border-color:var(--accent)}
+  .variant[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+  .variant .ico{font-size:28px;line-height:1.1;flex:none}
+  .variant .txt strong{display:block;font-size:17px;margin-bottom:3px}
+  .variant .txt span{color:var(--ink-soft);font-size:14.5px}
+  .variant .mark{margin-left:auto;flex:none;color:var(--accent);font-size:19px;opacity:0}
+  .variant[aria-pressed="true"] .mark{opacity:1}
+  .menu-actions{display:flex;flex-direction:column;gap:10px}
+  .menu-note{color:var(--ink-soft);font-size:13.5px;margin-top:22px}
+
+  /* ------------------ vue recette ------------------ */
+  .topbar{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .back{
+    background:none;border:0;color:var(--ink-soft);font:inherit;font-size:15px;
+    cursor:pointer;padding:6px 2px;
+  }
+  .back:hover{color:var(--accent)}
+  .topbar .now{margin-left:auto;font-size:13px;color:var(--ink-soft)}
+  .topbar .now b{color:var(--ink);font-weight:600}
+
   .servings{display:flex;align-items:center;justify-content:center;gap:18px}
   .stepper{display:flex;align-items:center;gap:12px}
   .round{
@@ -93,19 +137,15 @@
   .presets{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
   .chip{
     border:1px solid var(--line);background:transparent;color:var(--ink-soft);
-    padding:6px 13px;border-radius:999px;font-size:14px;cursor:pointer;
+    padding:6px 13px;border-radius:999px;font-size:14px;cursor:pointer;font-family:inherit;
   }
   .chip:hover{border-color:var(--accent);color:var(--accent)}
   .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 
-  /* --- ingrédients --- */
   .ing-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
   .hint{font-size:13px;color:var(--ink-soft)}
   ul.ings{list-style:none;margin:0;padding:0}
-  ul.ings li{
-    display:flex;align-items:center;gap:12px;
-    padding:9px 0;border-bottom:1px dashed var(--line);
-  }
+  ul.ings li{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line)}
   ul.ings li:last-child{border-bottom:0}
   ul.ings li.checked .name{text-decoration:line-through;color:var(--ink-soft)}
   .tick{
@@ -123,32 +163,17 @@
   .qty:hover{border-color:var(--line)}
   .qty:focus{outline:none;border-color:var(--accent);background:var(--bg-soft)}
   .qty[disabled]{color:var(--ink-soft);font-weight:500}
-  .unit{width:44px;flex:none;color:var(--ink-soft);font-size:14px}
+  .unit{width:46px;flex:none;color:var(--ink-soft);font-size:14px}
   .name{flex:1;min-width:0}
   .name small{display:block;color:var(--ink-soft);font-size:12.5px}
 
   .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-  .btn{
-    appearance:none;border:1px solid var(--line);background:var(--bg-soft);color:var(--ink);
-    padding:11px 18px;border-radius:12px;font:inherit;font-size:15px;cursor:pointer;
-  }
-  .btn:hover{border-color:var(--accent)}
-  .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
-  .btn.primary:hover{filter:brightness(1.05)}
-  .btn.wide{flex:1;min-width:190px;text-align:center}
 
-  /* --- aperçu étapes --- */
   ol.preview{margin:0;padding-left:22px;color:var(--ink-soft)}
   ol.preview li{padding:4px 0}
   ol.preview li b{color:var(--ink);font-weight:600}
 
-  .meta{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
-  .badge{
-    background:var(--accent-soft);color:var(--ink);border-radius:999px;
-    padding:5px 12px;font-size:13px;
-  }
-
-  /* --- mode pas à pas --- */
+  /* ------------------ mode pas à pas ------------------ */
   .runner{
     position:fixed;inset:0;z-index:50;background:var(--bg);
     display:none;flex-direction:column;
@@ -160,96 +185,102 @@
   .close{margin-left:auto;background:none;border:0;font-size:26px;line-height:1;color:var(--ink-soft);cursor:pointer;padding:4px 6px}
   .bar{height:5px;border-radius:99px;background:var(--bg-soft);overflow:hidden;max-width:760px;width:100%;margin:12px auto 0}
   .bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s ease}
+  @media (prefers-reduced-motion: reduce){ .bar i{transition:none} .round{transition:none} }
 
   .runner-body{
     flex:1;overflow-y:auto;max-width:760px;width:100%;margin:0 auto;
     display:flex;flex-direction:column;justify-content:center;gap:18px;padding:24px 0;
   }
-  .runner-body h2{margin:0;font-size:clamp(24px,6vw,34px);line-height:1.2;letter-spacing:-.02em}
-  .runner-body p.txt{margin:0;font-size:clamp(17px,4.3vw,20px);color:var(--ink)}
-  .step-ings{
-    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-    padding:14px 16px;
-  }
+  .runner-body h2{margin:0;font-size:clamp(24px,6vw,34px);line-height:1.2;letter-spacing:-.02em;text-wrap:balance}
+  .runner-body p.txt{margin:0;font-size:clamp(17px,4.3vw,20px)}
+  .step-ings{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
   .step-ings h3{margin:0 0 8px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
   .step-ings ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
   .step-ings li{background:var(--accent-soft);border-radius:8px;padding:5px 11px;font-size:15px}
   .step-ings li b{font-variant-numeric:tabular-nums}
-  .tip{
-    border-left:3px solid var(--accent);padding-left:12px;color:var(--ink-soft);
-    font-size:15px;font-style:italic;
-  }
+  .tip{border-left:3px solid var(--accent);padding-left:12px;color:var(--ink-soft);font-size:15px;font-style:italic}
 
   .timer{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-  .clock{font-size:40px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+  .clock{font-size:40px;font-weight:600;font-variant-numeric:tabular-nums}
   .clock.done{color:var(--ok)}
 
-  .runner-nav{
-    display:flex;gap:10px;max-width:760px;width:100%;margin:0 auto;padding-top:12px;
-    border-top:1px solid var(--line);
-  }
+  .runner-nav{display:flex;gap:10px;max-width:760px;width:100%;margin:0 auto;padding-top:12px;border-top:1px solid var(--line)}
   .runner-nav .btn{flex:1}
   .runner-nav .btn.primary{flex:2}
 
-  @media (max-width:420px){
-    .unit{width:38px}
-    .qty{width:74px}
-  }
+  @media (max-width:420px){ .unit{width:40px} .qty{width:74px} }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <header class="app">
+  <!-- ================= Menu d'accueil ================= -->
+  <section class="view" id="menu">
+    <div class="hero-mark" aria-hidden="true">🍮</div>
     <h1>Far Breton</h1>
-    <p>Le vrai, aux pruneaux — recette ajustable et guidée</p>
+    <p class="tagline">Le vrai, aux pruneaux — ajusté à votre tablée et guidé pas à pas</p>
     <div class="meta">
       <span class="badge">⏱ 20 min de préparation</span>
       <span class="badge">🔥 50 min de cuisson</span>
       <span class="badge">😌 Très facile</span>
     </div>
-  </header>
 
-  <section class="card">
-    <h2>Nombre de personnes</h2>
-    <div class="servings">
-      <div class="stepper">
-        <button class="round" id="minus" aria-label="Moins une personne">−</button>
-        <div class="count">
-          <strong id="servings">6</strong>
-          <span id="servingsLabel">personnes</span>
+    <div class="menu-cards" id="variants"></div>
+
+    <div class="menu-actions">
+      <button class="btn primary" id="goRecipe">Voir les ingrédients</button>
+      <button class="btn" id="goSteps">Démarrer directement le pas à pas</button>
+    </div>
+
+    <p class="menu-note">Fonctionne hors ligne · vos réglages sont mémorisés</p>
+  </section>
+
+  <!-- ================= Vue recette ================= -->
+  <section class="view" id="recipe" hidden>
+    <div class="topbar">
+      <button class="back" id="toMenu">‹ Menu</button>
+      <span class="now">Version <b id="variantNow">classique</b></span>
+    </div>
+
+    <section class="card">
+      <h2>Nombre de personnes</h2>
+      <div class="servings">
+        <div class="stepper">
+          <button class="round" id="minus" aria-label="Une personne de moins">−</button>
+          <div class="count">
+            <strong id="servings">6</strong>
+            <span id="servingsLabel">personnes</span>
+          </div>
+          <button class="round" id="plus" aria-label="Une personne de plus">+</button>
         </div>
-        <button class="round" id="plus" aria-label="Plus une personne">+</button>
       </div>
-    </div>
-    <div class="presets" id="presets"></div>
-  </section>
+      <div class="presets" id="presets"></div>
+    </section>
 
-  <section class="card">
-    <div class="ing-head">
-      <h2 style="margin:0">Ingrédients</h2>
-      <span class="hint">Modifiable : tapez une quantité</span>
-    </div>
-    <ul class="ings" id="ings"></ul>
-    <p class="hint" style="margin:14px 0 0">
-      💡 Changez la quantité d'un ingrédient (par ex. « j'ai 750 g de pruneaux ») :
-      toute la recette et le nombre de personnes s'ajustent automatiquement.
-    </p>
-    <div class="actions">
-      <button class="btn wide primary" id="start">▶︎ Suivre la recette pas à pas</button>
-      <button class="btn" id="reset">Réinitialiser</button>
-    </div>
-  </section>
+    <section class="card">
+      <div class="ing-head">
+        <h2 style="margin:0">Ingrédients</h2>
+        <span class="hint">Modifiable : tapez une quantité</span>
+      </div>
+      <ul class="ings" id="ings"></ul>
+      <p class="hint" style="margin:14px 0 0">
+        💡 Changez la quantité d'un ingrédient (par ex. « j'ai 750 g de pruneaux ») :
+        toute la recette et le nombre de personnes s'ajustent automatiquement.
+      </p>
+      <div class="actions">
+        <button class="btn wide primary" id="start">▶︎ Suivre la recette pas à pas</button>
+        <button class="btn" id="reset">Réinitialiser</button>
+      </div>
+    </section>
 
-  <section class="card">
-    <h2>Les étapes en un coup d'œil</h2>
-    <ol class="preview" id="preview"></ol>
+    <section class="card">
+      <h2>Les étapes en un coup d'œil</h2>
+      <ol class="preview" id="preview"></ol>
+    </section>
   </section>
-
-  <p class="hint" style="text-align:center">Fonctionne hors ligne · vos réglages sont mémorisés</p>
 </div>
 
-<!-- Mode pas à pas -->
+<!-- ================= Mode pas à pas ================= -->
 <div class="runner" id="runner" role="dialog" aria-modal="true" aria-label="Suivi pas à pas">
   <div class="runner-top">
     <span class="idx" id="rIdx">Étape 1 / 8</span>
@@ -287,24 +318,44 @@
   --------------------------------------------------------------- */
   const BASE_SERVINGS = 6;
 
+  const VARIANTS = [
+    {
+      id:"classique", icon:"🥃", label:"Classique au rhum",
+      desc:"Pruneaux macérés au rhum ambré : la version des tables bretonnes."
+    },
+    {
+      id:"sansAlcool", icon:"🍵", label:"Sans alcool",
+      desc:"Pruneaux gonflés au thé noir, parfum fleur d'oranger. Pour les enfants et les grandes tablées."
+    }
+  ];
+
+  // only : ingrédient réservé à une variante — liquid : peut garder des décimales
   const INGREDIENTS = [
-    {id:"lait",    qty:1000, unit:"ml", name:"Lait entier",         note:"tiédi, c'est mieux"},
+    {id:"lait",    qty:1000, unit:"ml", name:"Lait entier", note:"tiédi, c'est mieux", liquid:true},
     {id:"farine",  qty:250,  unit:"g",  name:"Farine de blé T45/T55"},
     {id:"sucre",   qty:150,  unit:"g",  name:"Sucre en poudre"},
-    {id:"oeufs",   qty:4,    unit:"",   name:"Œufs entiers",        step:0.5, decimals:1},
-    {id:"beurre",  qty:50,   unit:"g",  name:"Beurre demi-sel",     note:"fondu + un peu pour le plat"},
-    {id:"vanille", qty:2,    unit:"cc", name:"Sucre vanillé",       note:"ou 1 gousse de vanille", step:0.5, decimals:1},
-    {id:"sel",     qty:1,    unit:"pincée", name:"Sel fin",         fixed:true},
+    {id:"oeufs",   qty:4,    unit:"",   name:"Œufs entiers"},
+    {id:"beurre",  qty:50,   unit:"g",  name:"Beurre demi-sel", note:"fondu + un peu pour le plat"},
+    {id:"vanille", qty:2,    unit:"cc", name:"Sucre vanillé", note:"ou 1 gousse de vanille"},
+    {id:"sel",     qty:1,    unit:"pincée", name:"Sel fin", fixed:true},
     {id:"pruneaux",qty:250,  unit:"g",  name:"Pruneaux dénoyautés"},
-    {id:"rhum",    qty:3,    unit:"cl", name:"Rhum ambré",          note:"facultatif — ou du thé noir", step:0.5, decimals:1}
+    {id:"rhum",    qty:3,    unit:"cl", name:"Rhum ambré", note:"pour faire macérer les pruneaux", liquid:true, only:"classique"},
+    {id:"the",     qty:15,   unit:"cl", name:"Thé noir infusé", note:"bien chaud, pour gonfler les pruneaux", liquid:true, only:"sansAlcool"},
+    {id:"fleur",   qty:1,    unit:"cc", name:"Eau de fleur d'oranger", note:"le parfum qui remplace le rhum", only:"sansAlcool"}
   ];
 
   const STEPS = [
     {
       title:"Faire gonfler les pruneaux",
-      text:"Mettez les pruneaux dans un bol et couvrez-les de rhum (ou de thé noir chaud). Laissez-les s'imbiber pendant que vous préparez l'appareil.",
-      ings:["pruneaux","rhum"],
-      tip:"Pressé ? 10 minutes suffisent. La veille, c'est encore meilleur.",
+      text:{
+        classique:"Mettez les pruneaux dans un bol et couvrez-les de rhum ambré. Laissez-les s'imbiber pendant que vous préparez l'appareil.",
+        sansAlcool:"Mettez les pruneaux dans un bol et couvrez-les de thé noir bien chaud. Laissez-les gonfler pendant que vous préparez l'appareil."
+      },
+      ings:["pruneaux","rhum","the"],
+      tip:{
+        classique:"Pressé ? 10 minutes suffisent. La veille, c'est encore meilleur.",
+        sansAlcool:"Le thé bien chaud gonfle les pruneaux en 10 minutes. Un thé fort type Earl Grey parfume joliment."
+      },
       timer:600
     },
     {
@@ -325,15 +376,21 @@
     },
     {
       title:"Détendre au lait",
-      text:"Versez le lait tiède en filet, sans cesser de fouetter, puis ajoutez le beurre fondu. La pâte doit être bien fluide, comme une pâte à crêpes.",
-      ings:["lait","beurre"],
+      text:{
+        classique:"Versez le lait tiède en filet, sans cesser de fouetter, puis ajoutez le beurre fondu. La pâte doit être bien fluide, comme une pâte à crêpes.",
+        sansAlcool:"Versez le lait tiède en filet, sans cesser de fouetter, puis ajoutez le beurre fondu et l'eau de fleur d'oranger. La pâte doit être bien fluide, comme une pâte à crêpes."
+      },
+      ings:["lait","beurre","fleur"],
       tip:"Un grumeau récalcitrant ? Un coup de mixeur plongeant et c'est réglé."
     },
     {
       title:"Assembler",
       text:"Versez la pâte dans le plat beurré, puis répartissez les pruneaux égouttés à la surface. Ils descendront tout seuls pendant la cuisson.",
       ings:["pruneaux"],
-      tip:"Vous pouvez ajouter le rhum de trempage à la pâte : parfum garanti."
+      tip:{
+        classique:"Vous pouvez ajouter le rhum de trempage à la pâte : parfum garanti.",
+        sansAlcool:"Deux cuillères du thé de trempage dans la pâte suffisent à parfumer, sans la détremper."
+      }
     },
     {
       title:"Cuisson",
@@ -349,38 +406,42 @@
   ];
 
   /* ------------------------- état ------------------------- */
-  const STORE = "far-breton-v1";
-  let state = {servings: BASE_SERVINGS, checked: []};
+  const STORE = "far-breton-v2";
+  let state = {servings: BASE_SERVINGS, variant: "classique", checked: []};
   try{
     const saved = JSON.parse(localStorage.getItem(STORE) || "null");
-    if(saved && typeof saved.servings === "number" && saved.servings > 0){
-      state.servings = clampServings(saved.servings);
-      state.checked = Array.isArray(saved.checked) ? saved.checked : [];
+    if(saved){
+      if(typeof saved.servings === "number" && saved.servings > 0) state.servings = clampServings(saved.servings);
+      if(VARIANTS.some(v => v.id === saved.variant)) state.variant = saved.variant;
+      if(Array.isArray(saved.checked)) state.checked = saved.checked;
     }
   }catch(e){/* stockage indisponible : on garde les valeurs par défaut */}
 
-  function save(){
-    try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){}
-  }
-  function clampServings(n){
-    return Math.min(50, Math.max(0.5, Math.round(n*10)/10));
-  }
+  function save(){ try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){} }
+  function clampServings(n){ return Math.min(50, Math.max(1, Math.round(n))); }
   function ratio(){ return state.servings / BASE_SERVINGS; }
 
-  /* ------------------- calcul & affichage ------------------- */
-  function scaled(ing){
-    if(ing.fixed) return ing.qty;
-    return ing.qty * ratio();
-  }
+  // Texte simple ou variantes {classique:…, sansAlcool:…}
+  function pick(v){ return (v && typeof v === "object") ? v[state.variant] : v; }
+  // Ingrédients de la variante en cours
+  function currentIngredients(){ return INGREDIENTS.filter(i => !i.only || i.only === state.variant); }
+  function ingById(id){ const i = INGREDIENTS.find(x => x.id === id); return (i && (!i.only || i.only === state.variant)) ? i : null; }
 
-  // Arrondi « de cuisine » : lisible sans être faux.
+  /* ------------------- calcul & affichage -------------------
+     Solides : toujours des nombres entiers (arrondis « de cuisine »).
+     Liquides : décimales autorisées, car 1,5 L ou 4,5 cl se mesurent.
+  ---------------------------------------------------------- */
   function roundQty(v, ing){
-    if(ing.step) return Math.max(ing.step, Math.round(v/ing.step)*ing.step);
+    if(ing.fixed) return ing.qty;
+    if(ing.liquid){
+      if(v >= 1000) return Math.round(v/100)*100;   // au décilitre près : 1,8 L et non 1,83 L
+      if(v >= 100) return Math.round(v/10)*10;
+      if(v >= 10)  return Math.round(v);
+      return Math.max(0.5, Math.round(v*2)/2);
+    }
     if(v >= 200) return Math.round(v/10)*10;
     if(v >= 50)  return Math.round(v/5)*5;
-    if(v >= 10)  return Math.round(v);
-    if(v >= 1)   return Math.round(v*2)/2;
-    return Math.round(v*10)/10;
+    return Math.max(1, Math.round(v));
   }
 
   function fmtNum(v, decimals){
@@ -390,31 +451,62 @@
     return s.replace(".", ",");
   }
 
-  // Renvoie {value, unit} avec bascule g→kg et ml→L quand c'est plus lisible.
+  // {value, unit, text} — bascule ml → L quand c'est plus lisible ; les grammes restent en grammes.
   function display(ing){
-    let v = roundQty(scaled(ing), ing);
+    let v = roundQty(ing.fixed ? ing.qty : ing.qty * ratio(), ing);
     let u = ing.unit;
     if(u === "ml" && v >= 1000){ v = v/1000; u = "L"; }
-    else if(u === "g" && v >= 1000){ v = v/1000; u = "kg"; }
-    return {value: v, unit: u, text: fmtNum(v, (u==="L"||u==="kg") ? 2 : ing.decimals)};
+    return {value:v, unit:u, text:fmtNum(v, u === "L" ? 1 : (ing.liquid || ing.fixed ? undefined : 0))};
   }
 
-  function fullLabel(ing){
+  // « 250 g pruneaux dénoyautés », mais « 2 c. à café de sucre vanillé »
+  function fullLabel(ing, withName){
     const d = display(ing);
     let unit = d.unit;
     if(unit === "cc") unit = "c. à café";
     if(unit === "pincée") unit = d.value > 1 ? "pincées" : "pincée";
-    return (d.text + (unit ? " " + unit : "")).trim();
+    const qty = (d.text + (unit ? " " + unit : "")).trim();
+    if(!withName) return qty;
+    const name = ing.name.toLowerCase();
+    const needsDe = unit === "c. à café" || unit === "pincée" || unit === "pincées";
+    if(!needsDe) return qty + " " + name;
+    return qty + (/^[aeiouyéèêh]/.test(name) ? " d'" : " de ") + name;
   }
 
   /* ------------------------- rendu ------------------------- */
   const $ = s => document.querySelector(s);
   const ingsEl = $("#ings");
 
+  function renderVariants(){
+    const box = $("#variants");
+    box.innerHTML = "";
+    VARIANTS.forEach(v => {
+      const b = document.createElement("button");
+      b.className = "variant";
+      b.type = "button";
+      b.setAttribute("aria-pressed", String(v.id === state.variant));
+      b.innerHTML =
+        '<span class="ico" aria-hidden="true"></span>' +
+        '<span class="txt"><strong></strong><span></span></span>' +
+        '<span class="mark" aria-hidden="true">✓</span>';
+      b.querySelector(".ico").textContent = v.icon;
+      b.querySelector("strong").textContent = v.label;
+      b.querySelector(".txt span").textContent = v.desc;
+      b.addEventListener("click", () => {
+        state.variant = v.id;
+        state.checked = state.checked.filter(id => ingById(id));
+        save(); renderVariants(); renderAll(); renderPreview();
+      });
+      box.appendChild(b);
+    });
+    const cur = VARIANTS.find(v => v.id === state.variant);
+    $("#variantNow").textContent = cur ? cur.label.toLowerCase() : "";
+  }
+
   function renderServings(){
-    $("#servings").textContent = fmtNum(state.servings, state.servings % 1 === 0 ? 0 : 1);
+    $("#servings").textContent = String(state.servings);
     $("#servingsLabel").textContent = state.servings > 1 ? "personnes" : "personne";
-    $("#minus").disabled = state.servings <= 0.5;
+    $("#minus").disabled = state.servings <= 1;
     $("#plus").disabled  = state.servings >= 50;
     document.querySelectorAll("#presets .chip").forEach(c => {
       c.setAttribute("aria-pressed", String(Number(c.dataset.n) === state.servings));
@@ -423,7 +515,7 @@
 
   function renderIngredients(){
     ingsEl.innerHTML = "";
-    INGREDIENTS.forEach(ing => {
+    currentIngredients().forEach(ing => {
       const d = display(ing);
       const li = document.createElement("li");
       li.className = state.checked.includes(ing.id) ? "checked" : "";
@@ -476,8 +568,7 @@
   function applyQuantity(ing, input, shownUnit){
     const v = parseFloat(String(input.value).replace(",", "."));
     if(!isFinite(v) || v <= 0){ renderIngredients(); return; }
-    let real = v;
-    if(shownUnit === "L" || shownUnit === "kg") real = v * 1000;  // retour à ml / g
+    const real = shownUnit === "L" ? v * 1000 : v;
     state.servings = clampServings(real / ing.qty * BASE_SERVINGS);
     save();
     renderAll();
@@ -505,10 +596,19 @@
 
   function renderAll(){ renderServings(); renderIngredients(); }
 
+  /* --------------------- navigation vues --------------------- */
+  function showView(id){
+    ["menu","recipe"].forEach(v => { $("#" + v).hidden = (v !== id); });
+    window.scrollTo(0,0);
+  }
+  $("#goRecipe").addEventListener("click", () => showView("recipe"));
+  $("#goSteps").addEventListener("click", () => { showView("recipe"); openRunner(0); });
+  $("#toMenu").addEventListener("click", () => showView("menu"));
+
   /* ------------------- contrôles portions ------------------- */
   function setServings(n){ state.servings = clampServings(n); save(); renderAll(); }
-  $("#minus").addEventListener("click", () => setServings(state.servings <= 1 ? state.servings - 0.5 : state.servings - 1));
-  $("#plus").addEventListener("click",  () => setServings(state.servings < 1 ? state.servings + 0.5 : state.servings + 1));
+  $("#minus").addEventListener("click", () => setServings(state.servings - 1));
+  $("#plus").addEventListener("click",  () => setServings(state.servings + 1));
 
   [2,4,6,8,10,12].forEach(n => {
     const b = document.createElement("button");
@@ -519,13 +619,14 @@
   });
 
   $("#reset").addEventListener("click", () => {
-    state = {servings: BASE_SERVINGS, checked: []};
+    state.servings = BASE_SERVINGS;
+    state.checked = [];
     save(); renderAll();
   });
 
   /* --------------------- mode pas à pas --------------------- */
   const runner = $("#runner");
-  let stepIdx = 0, tick = null, remaining = 0, running = false, wakeLock = null;
+  let stepIdx = 0, ticker = null, remaining = 0, running = false, wakeLock = null;
 
   function openRunner(i){
     stepIdx = i || 0;
@@ -547,27 +648,22 @@
     $("#rIdx").textContent = "Étape " + (stepIdx+1) + " / " + STEPS.length;
     $("#rBar").style.width = ((stepIdx+1)/STEPS.length*100) + "%";
     $("#rTitle").textContent = s.title;
-    $("#rText").textContent = s.text;
+    $("#rText").textContent = pick(s.text);
 
     const box = $("#rIngs"), list = $("#rIngsList");
     list.innerHTML = "";
-    if(s.ings && s.ings.length){
-      s.ings.forEach(id => {
-        const ing = INGREDIENTS.find(x => x.id === id);
-        if(!ing) return;
-        const li = document.createElement("li");
-        const b = document.createElement("b");
-        b.textContent = fullLabel(ing);
-        li.append(b, " " + ing.name.toLowerCase());
-        list.appendChild(li);
-      });
-      box.hidden = false;
-    }else{
-      box.hidden = true;
-    }
+    const ings = (s.ings || []).map(ingById).filter(Boolean);
+    ings.forEach(ing => {
+      const li = document.createElement("li");
+      const b = document.createElement("b");
+      b.textContent = fullLabel(ing);
+      li.append(b, fullLabel(ing, true).slice(fullLabel(ing).length));
+      list.appendChild(li);
+    });
+    box.hidden = ings.length === 0;
 
-    const tip = $("#rTip");
-    if(s.tip){ tip.textContent = "💡 " + s.tip; tip.hidden = false; } else tip.hidden = true;
+    const tip = $("#rTip"), tipText = pick(s.tip);
+    if(tipText){ tip.textContent = "💡 " + tipText; tip.hidden = false; } else tip.hidden = true;
 
     const tbox = $("#rTimerBox");
     if(s.timer){
@@ -600,12 +696,12 @@
     $("#rClock").textContent = String(m).padStart(2,"0") + ":" + String(s).padStart(2,"0");
   }
   function startTimer(){
-    if(running) { pauseTimer(); return; }
+    if(running){ pauseTimer(); return; }
     running = true;
     $("#rTimerBtn").textContent = "Pause";
     $("#rTimerReset").hidden = false;
     const end = Date.now() + remaining*1000;
-    tick = setInterval(() => {
+    ticker = setInterval(() => {
       remaining = Math.round((end - Date.now())/1000);
       paintClock();
       if(remaining <= 0){
@@ -618,12 +714,11 @@
     }, 250);
   }
   function pauseTimer(){
-    clearInterval(tick); tick = null; running = false;
+    clearInterval(ticker); ticker = null; running = false;
     $("#rTimerBtn").textContent = "Reprendre";
   }
-  function stopTimer(){
-    clearInterval(tick); tick = null; running = false;
-  }
+  function stopTimer(){ clearInterval(ticker); ticker = null; running = false; }
+
   function beep(){
     try{
       const Ctx = window.AudioContext || window.webkitAudioContext;
@@ -644,9 +739,7 @@
   }
 
   async function requestWakeLock(){
-    try{
-      if("wakeLock" in navigator) wakeLock = await navigator.wakeLock.request("screen");
-    }catch(e){}
+    try{ if("wakeLock" in navigator) wakeLock = await navigator.wakeLock.request("screen"); }catch(e){}
   }
   function releaseWakeLock(){
     try{ if(wakeLock){ wakeLock.release(); wakeLock = null; } }catch(e){}
@@ -677,8 +770,10 @@
   });
 
   /* ------------------------- démarrage ------------------------- */
+  renderVariants();
   renderAll();
   renderPreview();
+  showView("menu");
 })();
 </script>
 </body>

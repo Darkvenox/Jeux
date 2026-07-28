@@ -10,6 +10,16 @@ depuis un téléphone posé sur le plan de travail.
 
 ## Fonctionnalités
 
+**Menu d'accueil**
+- écran de départ avec le choix de la version, puis deux entrées :
+  « Voir les ingrédients » ou « Démarrer directement le pas à pas »
+- retour au menu à tout moment depuis la vue recette (‹ Menu)
+
+**Deux versions**
+- **Classique au rhum** — pruneaux macérés au rhum ambré
+- **Sans alcool** — pruneaux gonflés au thé noir + eau de fleur d'oranger
+- le choix change les ingrédients *et* le texte des étapes concernées ; il est mémorisé
+
 **Nombre de personnes**
 - boutons − / + (par pas de 1, et de 0,5 sous 1 personne) et raccourcis 2 / 4 / 6 / 8 / 10 / 12
 - toutes les quantités se recalculent instantanément à partir de la base pour 6 personnes
@@ -17,8 +27,9 @@ depuis un téléphone posé sur le plan de travail.
 **Proportions modifiables**
 - chaque quantité est un champ éditable : tapez ce dont vous disposez réellement
   (« j'ai 750 g de pruneaux ») et **toute la recette + le nombre de personnes se réajustent**
-- arrondis « de cuisine » (au 10 g près sur les grosses quantités, au demi-œuf près),
-  bascule automatique g → kg et ml → L
+- **arrondis en nombres entiers** pour tout ce qui se pèse (grammes, œufs, cuillères) ;
+  seuls les liquides gardent des décimales quand c'est utile (1,5 L de lait, 4,5 cl de rhum)
+- bascule automatique ml → L au-delà du litre
 - cases à cocher pour la liste de courses / la mise en place
 - le réglage est mémorisé (localStorage)
 
@@ -38,10 +49,14 @@ Tout tient dans `index.html`. La recette est décrite en haut du script, facile 
 
 ```js
 const BASE_SERVINGS = 6;          // quantités de référence
-const INGREDIENTS = [ … ];        // id, quantité, unité, nom, note, fixed/step
+const VARIANTS    = [ … ];        // id, icône, nom, description
+const INGREDIENTS = [ … ];        // id, quantité, unité, nom, note, fixed/liquid/only
 const STEPS       = [ … ];        // titre, texte, ingrédients liés, astuce, minuteur (s)
 ```
 
 - `fixed: true` → ingrédient non proportionnel (la pincée de sel)
-- `step: 0.5` → arrondi imposé (œufs, cuillères)
+- `liquid: true` → décimales autorisées ; sinon la quantité est arrondie à l'entier
+- `only: "sansAlcool"` → ingrédient réservé à une version
 - `timer: 600` → minuteur de l'étape, en secondes
+- `text` / `tip` acceptent une chaîne, ou un objet `{classique: "…", sansAlcool: "…"}`
+  pour un texte propre à chaque version
