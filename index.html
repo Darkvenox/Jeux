@@ -331,15 +331,26 @@
 /* Le script tourne : on retire l'avertissement, et toute erreur devient visible
    à l'écran plutôt que de laisser des boutons muets. */
 (function(){
-  var warn = document.getElementById("jsWarn");
-  if(warn) warn.remove();
-  window.addEventListener("error", function(e){
+  function hideWarn(){
+    var w = document.getElementById("jsWarn");
+    if(w) w.remove();
+  }
+  hideWarn();                                              // script en fin de page
+  document.addEventListener("DOMContentLoaded", hideWarn); // script déplacé en tête
+  var pending = null;
+  function showDiag(){
+    if(!pending) return;
     var d = document.getElementById("diag");
-    if(!d) return;
+    if(!d) return;                       // page pas encore construite : on réessaiera
     d.hidden = false;
-    d.textContent = "Erreur JavaScript : " + (e.message || e.type) +
+    d.textContent = pending;
+  }
+  window.addEventListener("error", function(e){
+    pending = "Erreur JavaScript : " + (e.message || e.type) +
       (e.lineno ? " (ligne " + e.lineno + ")" : "");
+    showDiag();
   });
+  document.addEventListener("DOMContentLoaded", showDiag);
 })();
 
 (function(){
@@ -507,7 +518,7 @@
 
   /* ------------------------- rendu ------------------------- */
   const $ = s => document.querySelector(s);
-  const ingsEl = $("#ings");
+  let ingsEl = null;   // renseigné au démarrage, une fois la page construite
 
   function renderVariants(){
     const box = $("#variants");
@@ -633,31 +644,36 @@
     ["menu","recipe"].forEach(v => { $("#" + v).hidden = (v !== id); });
     window.scrollTo(0,0);
   }
-  $("#goRecipe").addEventListener("click", () => showView("recipe"));
-  $("#goSteps").addEventListener("click", () => { showView("recipe"); openRunner(0); });
-  $("#toMenu").addEventListener("click", () => showView("menu"));
+  function wireMenu(){
+    $("#goRecipe").addEventListener("click", () => showView("recipe"));
+    $("#goSteps").addEventListener("click", () => { showView("recipe"); openRunner(0); });
+    $("#toMenu").addEventListener("click", () => showView("menu"));
+  }
 
   /* ------------------- contrôles portions ------------------- */
   function setServings(n){ state.servings = clampServings(n); save(); renderAll(); }
-  $("#minus").addEventListener("click", () => setServings(state.servings - 1));
-  $("#plus").addEventListener("click",  () => setServings(state.servings + 1));
 
-  [2,4,6,8,10,12].forEach(n => {
-    const b = document.createElement("button");
-    b.className = "chip"; b.type = "button"; b.dataset.n = n;
-    b.textContent = n + " pers.";
-    b.addEventListener("click", () => setServings(n));
-    $("#presets").appendChild(b);
-  });
+  function wireServings(){
+    $("#minus").addEventListener("click", () => setServings(state.servings - 1));
+    $("#plus").addEventListener("click",  () => setServings(state.servings + 1));
 
-  $("#reset").addEventListener("click", () => {
-    state.servings = BASE_SERVINGS;
-    state.checked = [];
-    save(); renderAll();
-  });
+    [2,4,6,8,10,12].forEach(n => {
+      const b = document.createElement("button");
+      b.className = "chip"; b.type = "button"; b.dataset.n = n;
+      b.textContent = n + " pers.";
+      b.addEventListener("click", () => setServings(n));
+      $("#presets").appendChild(b);
+    });
+
+    $("#reset").addEventListener("click", () => {
+      state.servings = BASE_SERVINGS;
+      state.checked = [];
+      save(); renderAll();
+    });
+  }
 
   /* --------------------- mode pas à pas --------------------- */
-  const runner = $("#runner");
+  let runner = null;
   let stepIdx = 0, ticker = null, remaining = 0, running = false, wakeLock = null;
 
   function openRunner(i){
@@ -776,36 +792,54 @@
   function releaseWakeLock(){
     try{ if(wakeLock){ wakeLock.release(); wakeLock = null; } }catch(e){}
   }
-  document.addEventListener("visibilitychange", () => {
-    if(document.visibilityState === "visible" && runner.classList.contains("on")) requestWakeLock();
-  });
+  function wireRunner(){
+    document.addEventListener("visibilitychange", () => {
+      if(document.visibilityState === "visible" && runner.classList.contains("on")) requestWakeLock();
+    });
 
-  $("#start").addEventListener("click", () => openRunner(0));
-  $("#rClose").addEventListener("click", closeRunner);
-  $("#rPrev").addEventListener("click", () => go(-1));
-  $("#rNext").addEventListener("click", () => go(1));
-  $("#rTimerBtn").addEventListener("click", startTimer);
-  $("#rTimerReset").addEventListener("click", () => {
-    stopTimer();
-    remaining = STEPS[stepIdx].timer;
-    paintClock();
-    $("#rClock").classList.remove("done");
-    $("#rTimerBtn").textContent = "Démarrer " + humanDuration(remaining);
-    $("#rTimerReset").hidden = true;
-  });
+    $("#start").addEventListener("click", () => openRunner(0));
+    $("#rClose").addEventListener("click", closeRunner);
+    $("#rPrev").addEventListener("click", () => go(-1));
+    $("#rNext").addEventListener("click", () => go(1));
+    $("#rTimerBtn").addEventListener("click", startTimer);
+    $("#rTimerReset").addEventListener("click", () => {
+      stopTimer();
+      remaining = STEPS[stepIdx].timer;
+      paintClock();
+      $("#rClock").classList.remove("done");
+      $("#rTimerBtn").textContent = "Démarrer " + humanDuration(remaining);
+      $("#rTimerReset").hidden = true;
+    });
 
-  document.addEventListener("keydown", e => {
-    if(!runner.classList.contains("on")) return;
-    if(e.key === "Escape") closeRunner();
-    else if(e.key === "ArrowRight") go(1);
-    else if(e.key === "ArrowLeft") go(-1);
-  });
+    document.addEventListener("keydown", e => {
+      if(!runner.classList.contains("on")) return;
+      if(e.key === "Escape") closeRunner();
+      else if(e.key === "ArrowRight") go(1);
+      else if(e.key === "ArrowLeft") go(-1);
+    });
+  }
 
-  /* ------------------------- démarrage ------------------------- */
-  renderVariants();
-  renderAll();
-  renderPreview();
-  showView("menu");
+  /* ------------------------- démarrage -------------------------
+     Rien ne s'exécute avant que la page soit construite : sinon les
+     boutons resteraient sans écouteur et donc sans effet.
+  ------------------------------------------------------------- */
+  function boot(){
+    ingsEl = $("#ings");
+    runner = $("#runner");
+    if(!ingsEl || !runner || !$("#goRecipe")) return false;
+
+    wireMenu();
+    wireServings();
+    wireRunner();
+
+    renderVariants();
+    renderAll();
+    renderPreview();
+    showView("menu");
+    return true;
+  }
+
+  if(!boot()) document.addEventListener("DOMContentLoaded", boot);
 })();
 </script>
 </body>
