@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#c8873f">
+<title>Far Breton — recette interactive</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍮</text></svg>">
+<style>
+  :root{
+    --bg:#fdf6ec;
+    --bg-soft:#f6e9d7;
+    --card:#fffaf3;
+    --ink:#3a2a1c;
+    --ink-soft:#7d6550;
+    --line:#e6d3bb;
+    --accent:#c8873f;
+    --accent-ink:#fff;
+    --accent-soft:#f4e2cb;
+    --ok:#4f7a4a;
+    --radius:16px;
+    --shadow:0 1px 2px rgba(58,42,28,.06), 0 8px 24px rgba(58,42,28,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#1b1512;
+      --bg-soft:#241c17;
+      --card:#241c17;
+      --ink:#f3e7d9;
+      --ink-soft:#b39c85;
+      --line:#3a2e25;
+      --accent:#e0a260;
+      --accent-ink:#241c17;
+      --accent-soft:#33271e;
+      --ok:#8fc088;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:20px 16px 64px}
+
+  header.app{text-align:center;padding:12px 0 20px}
+  header.app h1{margin:0;font-size:clamp(28px,7vw,40px);letter-spacing:-.02em}
+  header.app p{margin:6px 0 0;color:var(--ink-soft);font-size:15px}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:18px;
+    margin-bottom:16px;
+  }
+  .card h2{margin:0 0 14px;font-size:15px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-soft)}
+
+  /* --- portions --- */
+  .servings{display:flex;align-items:center;justify-content:center;gap:18px}
+  .stepper{display:flex;align-items:center;gap:12px}
+  .round{
+    width:46px;height:46px;flex:none;border-radius:50%;
+    border:1px solid var(--line);background:var(--bg-soft);color:var(--ink);
+    font-size:24px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .08s ease, background .15s ease;
+  }
+  .round:hover{background:var(--accent-soft)}
+  .round:active{transform:scale(.92)}
+  .round:disabled{opacity:.35;cursor:not-allowed}
+  .count{min-width:132px;text-align:center}
+  .count strong{display:block;font-size:34px;line-height:1.1;font-variant-numeric:tabular-nums}
+  .count span{font-size:13px;color:var(--ink-soft)}
+
+  .presets{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
+  .chip{
+    border:1px solid var(--line);background:transparent;color:var(--ink-soft);
+    padding:6px 13px;border-radius:999px;font-size:14px;cursor:pointer;
+  }
+  .chip:hover{border-color:var(--accent);color:var(--accent)}
+  .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+
+  /* --- ingrédients --- */
+  .ing-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .hint{font-size:13px;color:var(--ink-soft)}
+  ul.ings{list-style:none;margin:0;padding:0}
+  ul.ings li{
+    display:flex;align-items:center;gap:12px;
+    padding:9px 0;border-bottom:1px dashed var(--line);
+  }
+  ul.ings li:last-child{border-bottom:0}
+  ul.ings li.checked .name{text-decoration:line-through;color:var(--ink-soft)}
+  .tick{
+    width:24px;height:24px;flex:none;border-radius:7px;cursor:pointer;
+    border:1px solid var(--line);background:var(--bg-soft);
+    display:flex;align-items:center;justify-content:center;font-size:14px;color:transparent;
+  }
+  li.checked .tick{background:var(--ok);border-color:var(--ok);color:#fff}
+  .qty{
+    width:82px;flex:none;text-align:right;
+    font-variant-numeric:tabular-nums;font-weight:600;font-size:17px;
+    background:transparent;border:1px solid transparent;border-radius:8px;
+    padding:5px 6px;color:var(--ink);font-family:inherit;
+  }
+  .qty:hover{border-color:var(--line)}
+  .qty:focus{outline:none;border-color:var(--accent);background:var(--bg-soft)}
+  .qty[disabled]{color:var(--ink-soft);font-weight:500}
+  .unit{width:44px;flex:none;color:var(--ink-soft);font-size:14px}
+  .name{flex:1;min-width:0}
+  .name small{display:block;color:var(--ink-soft);font-size:12.5px}
+
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .btn{
+    appearance:none;border:1px solid var(--line);background:var(--bg-soft);color:var(--ink);
+    padding:11px 18px;border-radius:12px;font:inherit;font-size:15px;cursor:pointer;
+  }
+  .btn:hover{border-color:var(--accent)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+  .btn.primary:hover{filter:brightness(1.05)}
+  .btn.wide{flex:1;min-width:190px;text-align:center}
+
+  /* --- aperçu étapes --- */
+  ol.preview{margin:0;padding-left:22px;color:var(--ink-soft)}
+  ol.preview li{padding:4px 0}
+  ol.preview li b{color:var(--ink);font-weight:600}
+
+  .meta{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+  .badge{
+    background:var(--accent-soft);color:var(--ink);border-radius:999px;
+    padding:5px 12px;font-size:13px;
+  }
+
+  /* --- mode pas à pas --- */
+  .runner{
+    position:fixed;inset:0;z-index:50;background:var(--bg);
+    display:none;flex-direction:column;
+    padding:max(14px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));
+  }
+  .runner.on{display:flex}
+  .runner-top{display:flex;align-items:center;gap:12px;max-width:760px;width:100%;margin:0 auto}
+  .runner-top .idx{font-size:13px;color:var(--ink-soft);letter-spacing:.06em;text-transform:uppercase}
+  .close{margin-left:auto;background:none;border:0;font-size:26px;line-height:1;color:var(--ink-soft);cursor:pointer;padding:4px 6px}
+  .bar{height:5px;border-radius:99px;background:var(--bg-soft);overflow:hidden;max-width:760px;width:100%;margin:12px auto 0}
+  .bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s ease}
+
+  .runner-body{
+    flex:1;overflow-y:auto;max-width:760px;width:100%;margin:0 auto;
+    display:flex;flex-direction:column;justify-content:center;gap:18px;padding:24px 0;
+  }
+  .runner-body h2{margin:0;font-size:clamp(24px,6vw,34px);line-height:1.2;letter-spacing:-.02em}
+  .runner-body p.txt{margin:0;font-size:clamp(17px,4.3vw,20px);color:var(--ink)}
+  .step-ings{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 16px;
+  }
+  .step-ings h3{margin:0 0 8px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
+  .step-ings ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+  .step-ings li{background:var(--accent-soft);border-radius:8px;padding:5px 11px;font-size:15px}
+  .step-ings li b{font-variant-numeric:tabular-nums}
+  .tip{
+    border-left:3px solid var(--accent);padding-left:12px;color:var(--ink-soft);
+    font-size:15px;font-style:italic;
+  }
+
+  .timer{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .clock{font-size:40px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+  .clock.done{color:var(--ok)}
+
+  .runner-nav{
+    display:flex;gap:10px;max-width:760px;width:100%;margin:0 auto;padding-top:12px;
+    border-top:1px solid var(--line);
+  }
+  .runner-nav .btn{flex:1}
+  .runner-nav .btn.primary{flex:2}
+
+  @media (max-width:420px){
+    .unit{width:38px}
+    .qty{width:74px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="app">
+    <h1>Far Breton</h1>
+    <p>Le vrai, aux pruneaux — recette ajustable et guidée</p>
+    <div class="meta">
+      <span class="badge">⏱ 20 min de préparation</span>
+      <span class="badge">🔥 50 min de cuisson</span>
+      <span class="badge">😌 Très facile</span>
+    </div>
+  </header>
+
+  <section class="card">
+    <h2>Nombre de personnes</h2>
+    <div class="servings">
+      <div class="stepper">
+        <button class="round" id="minus" aria-label="Moins une personne">−</button>
+        <div class="count">
+          <strong id="servings">6</strong>
+          <span id="servingsLabel">personnes</span>
+        </div>
+        <button class="round" id="plus" aria-label="Plus une personne">+</button>
+      </div>
+    </div>
+    <div class="presets" id="presets"></div>
+  </section>
+
+  <section class="card">
+    <div class="ing-head">
+      <h2 style="margin:0">Ingrédients</h2>
+      <span class="hint">Modifiable : tapez une quantité</span>
+    </div>
+    <ul class="ings" id="ings"></ul>
+    <p class="hint" style="margin:14px 0 0">
+      💡 Changez la quantité d'un ingrédient (par ex. « j'ai 750 g de pruneaux ») :
+      toute la recette et le nombre de personnes s'ajustent automatiquement.
+    </p>
+    <div class="actions">
+      <button class="btn wide primary" id="start">▶︎ Suivre la recette pas à pas</button>
+      <button class="btn" id="reset">Réinitialiser</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Les étapes en un coup d'œil</h2>
+    <ol class="preview" id="preview"></ol>
+  </section>
+
+  <p class="hint" style="text-align:center">Fonctionne hors ligne · vos réglages sont mémorisés</p>
+</div>
+
+<!-- Mode pas à pas -->
+<div class="runner" id="runner" role="dialog" aria-modal="true" aria-label="Suivi pas à pas">
+  <div class="runner-top">
+    <span class="idx" id="rIdx">Étape 1 / 8</span>
+    <button class="close" id="rClose" aria-label="Quitter le mode pas à pas">×</button>
+  </div>
+  <div class="bar"><i id="rBar"></i></div>
+
+  <div class="runner-body">
+    <h2 id="rTitle"></h2>
+    <p class="txt" id="rText"></p>
+    <div class="step-ings" id="rIngs" hidden>
+      <h3>Pour cette étape</h3>
+      <ul id="rIngsList"></ul>
+    </div>
+    <p class="tip" id="rTip" hidden></p>
+    <div class="timer" id="rTimerBox" hidden>
+      <span class="clock" id="rClock">00:00</span>
+      <button class="btn" id="rTimerBtn">Démarrer le minuteur</button>
+      <button class="btn" id="rTimerReset" hidden>Remettre à zéro</button>
+    </div>
+  </div>
+
+  <div class="runner-nav">
+    <button class="btn" id="rPrev">← Précédent</button>
+    <button class="btn primary" id="rNext">Suivant →</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------------------------------------------------------
+     La recette : quantités de référence pour BASE_SERVINGS personnes
+  --------------------------------------------------------------- */
+  const BASE_SERVINGS = 6;
+
+  const INGREDIENTS = [
+    {id:"lait",    qty:1000, unit:"ml", name:"Lait entier",         note:"tiédi, c'est mieux"},
+    {id:"farine",  qty:250,  unit:"g",  name:"Farine de blé T45/T55"},
+    {id:"sucre",   qty:150,  unit:"g",  name:"Sucre en poudre"},
+    {id:"oeufs",   qty:4,    unit:"",   name:"Œufs entiers",        step:0.5, decimals:1},
+    {id:"beurre",  qty:50,   unit:"g",  name:"Beurre demi-sel",     note:"fondu + un peu pour le plat"},
+    {id:"vanille", qty:2,    unit:"cc", name:"Sucre vanillé",       note:"ou 1 gousse de vanille", step:0.5, decimals:1},
+    {id:"sel",     qty:1,    unit:"pincée", name:"Sel fin",         fixed:true},
+    {id:"pruneaux",qty:250,  unit:"g",  name:"Pruneaux dénoyautés"},
+    {id:"rhum",    qty:3,    unit:"cl", name:"Rhum ambré",          note:"facultatif — ou du thé noir", step:0.5, decimals:1}
+  ];
+
+  const STEPS = [
+    {
+      title:"Faire gonfler les pruneaux",
+      text:"Mettez les pruneaux dans un bol et couvrez-les de rhum (ou de thé noir chaud). Laissez-les s'imbiber pendant que vous préparez l'appareil.",
+      ings:["pruneaux","rhum"],
+      tip:"Pressé ? 10 minutes suffisent. La veille, c'est encore meilleur.",
+      timer:600
+    },
+    {
+      title:"Préchauffer le four",
+      text:"Préchauffez le four à 180 °C (chaleur traditionnelle, position basse). Beurrez généreusement un plat à gratin d'environ 25 × 20 cm.",
+      tip:"Un plat en terre ou en fonte donne les bords caramélisés du vrai far."
+    },
+    {
+      title:"Mélanger les poudres",
+      text:"Dans un grand saladier, versez la farine, le sucre, le sucre vanillé et le sel. Mélangez au fouet, puis creusez un puits au centre.",
+      ings:["farine","sucre","vanille","sel"]
+    },
+    {
+      title:"Incorporer les œufs",
+      text:"Cassez les œufs dans le puits et fouettez en partant du centre, en ramenant progressivement la farine. Vous obtenez une pâte épaisse et lisse.",
+      ings:["oeufs"],
+      tip:"Allez-y doucement au début : c'est ce qui évite les grumeaux."
+    },
+    {
+      title:"Détendre au lait",
+      text:"Versez le lait tiède en filet, sans cesser de fouetter, puis ajoutez le beurre fondu. La pâte doit être bien fluide, comme une pâte à crêpes.",
+      ings:["lait","beurre"],
+      tip:"Un grumeau récalcitrant ? Un coup de mixeur plongeant et c'est réglé."
+    },
+    {
+      title:"Assembler",
+      text:"Versez la pâte dans le plat beurré, puis répartissez les pruneaux égouttés à la surface. Ils descendront tout seuls pendant la cuisson.",
+      ings:["pruneaux"],
+      tip:"Vous pouvez ajouter le rhum de trempage à la pâte : parfum garanti."
+    },
+    {
+      title:"Cuisson",
+      text:"Enfournez à 180 °C pour 45 à 50 minutes. Le far doit être bien doré et gonflé, avec un cœur juste pris — la lame d'un couteau ressort propre.",
+      tip:"Il gonfle puis retombe en refroidissant : c'est parfaitement normal.",
+      timer:2700
+    },
+    {
+      title:"Repos et dégustation",
+      text:"Laissez tiédir au moins 30 minutes dans le plat. Le far breton se déguste tiède ou froid, jamais brûlant — sa texture flan a besoin de se raffermir.",
+      timer:1800
+    }
+  ];
+
+  /* ------------------------- état ------------------------- */
+  const STORE = "far-breton-v1";
+  let state = {servings: BASE_SERVINGS, checked: []};
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORE) || "null");
+    if(saved && typeof saved.servings === "number" && saved.servings > 0){
+      state.servings = clampServings(saved.servings);
+      state.checked = Array.isArray(saved.checked) ? saved.checked : [];
+    }
+  }catch(e){/* stockage indisponible : on garde les valeurs par défaut */}
+
+  function save(){
+    try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){}
+  }
+  function clampServings(n){
+    return Math.min(50, Math.max(0.5, Math.round(n*10)/10));
+  }
+  function ratio(){ return state.servings / BASE_SERVINGS; }
+
+  /* ------------------- calcul & affichage ------------------- */
+  function scaled(ing){
+    if(ing.fixed) return ing.qty;
+    return ing.qty * ratio();
+  }
+
+  // Arrondi « de cuisine » : lisible sans être faux.
+  function roundQty(v, ing){
+    if(ing.step) return Math.max(ing.step, Math.round(v/ing.step)*ing.step);
+    if(v >= 200) return Math.round(v/10)*10;
+    if(v >= 50)  return Math.round(v/5)*5;
+    if(v >= 10)  return Math.round(v);
+    if(v >= 1)   return Math.round(v*2)/2;
+    return Math.round(v*10)/10;
+  }
+
+  function fmtNum(v, decimals){
+    const d = decimals != null ? decimals : (v % 1 === 0 ? 0 : (v*10 % 1 === 0 ? 1 : 2));
+    let s = v.toFixed(d);
+    if(s.indexOf(".") >= 0) s = s.replace(/0+$/,"").replace(/\.$/,"");
+    return s.replace(".", ",");
+  }
+
+  // Renvoie {value, unit} avec bascule g→kg et ml→L quand c'est plus lisible.
+  function display(ing){
+    let v = roundQty(scaled(ing), ing);
+    let u = ing.unit;
+    if(u === "ml" && v >= 1000){ v = v/1000; u = "L"; }
+    else if(u === "g" && v >= 1000){ v = v/1000; u = "kg"; }
+    return {value: v, unit: u, text: fmtNum(v, (u==="L"||u==="kg") ? 2 : ing.decimals)};
+  }
+
+  function fullLabel(ing){
+    const d = display(ing);
+    let unit = d.unit;
+    if(unit === "cc") unit = "c. à café";
+    if(unit === "pincée") unit = d.value > 1 ? "pincées" : "pincée";
+    return (d.text + (unit ? " " + unit : "")).trim();
+  }
+
+  /* ------------------------- rendu ------------------------- */
+  const $ = s => document.querySelector(s);
+  const ingsEl = $("#ings");
+
+  function renderServings(){
+    $("#servings").textContent = fmtNum(state.servings, state.servings % 1 === 0 ? 0 : 1);
+    $("#servingsLabel").textContent = state.servings > 1 ? "personnes" : "personne";
+    $("#minus").disabled = state.servings <= 0.5;
+    $("#plus").disabled  = state.servings >= 50;
+    document.querySelectorAll("#presets .chip").forEach(c => {
+      c.setAttribute("aria-pressed", String(Number(c.dataset.n) === state.servings));
+    });
+  }
+
+  function renderIngredients(){
+    ingsEl.innerHTML = "";
+    INGREDIENTS.forEach(ing => {
+      const d = display(ing);
+      const li = document.createElement("li");
+      li.className = state.checked.includes(ing.id) ? "checked" : "";
+
+      const tickBtn = document.createElement("button");
+      tickBtn.className = "tick";
+      tickBtn.type = "button";
+      tickBtn.textContent = "✓";
+      tickBtn.setAttribute("aria-label", "Cocher " + ing.name);
+      tickBtn.addEventListener("click", () => {
+        const i = state.checked.indexOf(ing.id);
+        if(i >= 0) state.checked.splice(i,1); else state.checked.push(ing.id);
+        save(); renderIngredients();
+      });
+
+      const input = document.createElement("input");
+      input.className = "qty";
+      input.type = "text";
+      input.inputMode = "decimal";
+      input.value = d.text;
+      input.setAttribute("aria-label", "Quantité — " + ing.name);
+      if(ing.fixed){
+        input.disabled = true;
+        input.title = "Quantité non proportionnelle";
+      }else{
+        input.addEventListener("change", () => applyQuantity(ing, input, d.unit));
+        input.addEventListener("keydown", e => { if(e.key === "Enter") input.blur(); });
+        input.addEventListener("focus", () => input.select());
+      }
+
+      const unit = document.createElement("span");
+      unit.className = "unit";
+      unit.textContent = d.unit;
+
+      const name = document.createElement("span");
+      name.className = "name";
+      name.textContent = ing.name;
+      if(ing.note){
+        const small = document.createElement("small");
+        small.textContent = ing.note;
+        name.appendChild(small);
+      }
+
+      li.append(tickBtn, input, unit, name);
+      ingsEl.appendChild(li);
+    });
+  }
+
+  // Saisir une quantité recalcule tout le reste (et le nombre de personnes).
+  function applyQuantity(ing, input, shownUnit){
+    const v = parseFloat(String(input.value).replace(",", "."));
+    if(!isFinite(v) || v <= 0){ renderIngredients(); return; }
+    let real = v;
+    if(shownUnit === "L" || shownUnit === "kg") real = v * 1000;  // retour à ml / g
+    state.servings = clampServings(real / ing.qty * BASE_SERVINGS);
+    save();
+    renderAll();
+  }
+
+  function renderPreview(){
+    const ol = $("#preview");
+    ol.innerHTML = "";
+    STEPS.forEach(s => {
+      const li = document.createElement("li");
+      const b = document.createElement("b");
+      b.textContent = s.title;
+      li.appendChild(b);
+      if(s.timer) li.append(" — " + humanDuration(s.timer));
+      ol.appendChild(li);
+    });
+  }
+
+  function humanDuration(sec){
+    const m = Math.round(sec/60);
+    if(m < 60) return m + " min";
+    const h = Math.floor(m/60), r = m % 60;
+    return h + " h" + (r ? " " + r : "");
+  }
+
+  function renderAll(){ renderServings(); renderIngredients(); }
+
+  /* ------------------- contrôles portions ------------------- */
+  function setServings(n){ state.servings = clampServings(n); save(); renderAll(); }
+  $("#minus").addEventListener("click", () => setServings(state.servings <= 1 ? state.servings - 0.5 : state.servings - 1));
+  $("#plus").addEventListener("click",  () => setServings(state.servings < 1 ? state.servings + 0.5 : state.servings + 1));
+
+  [2,4,6,8,10,12].forEach(n => {
+    const b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.dataset.n = n;
+    b.textContent = n + " pers.";
+    b.addEventListener("click", () => setServings(n));
+    $("#presets").appendChild(b);
+  });
+
+  $("#reset").addEventListener("click", () => {
+    state = {servings: BASE_SERVINGS, checked: []};
+    save(); renderAll();
+  });
+
+  /* --------------------- mode pas à pas --------------------- */
+  const runner = $("#runner");
+  let stepIdx = 0, tick = null, remaining = 0, running = false, wakeLock = null;
+
+  function openRunner(i){
+    stepIdx = i || 0;
+    runner.classList.add("on");
+    document.body.style.overflow = "hidden";
+    requestWakeLock();
+    showStep();
+  }
+  function closeRunner(){
+    stopTimer();
+    runner.classList.remove("on");
+    document.body.style.overflow = "";
+    releaseWakeLock();
+  }
+
+  function showStep(){
+    stopTimer();
+    const s = STEPS[stepIdx];
+    $("#rIdx").textContent = "Étape " + (stepIdx+1) + " / " + STEPS.length;
+    $("#rBar").style.width = ((stepIdx+1)/STEPS.length*100) + "%";
+    $("#rTitle").textContent = s.title;
+    $("#rText").textContent = s.text;
+
+    const box = $("#rIngs"), list = $("#rIngsList");
+    list.innerHTML = "";
+    if(s.ings && s.ings.length){
+      s.ings.forEach(id => {
+        const ing = INGREDIENTS.find(x => x.id === id);
+        if(!ing) return;
+        const li = document.createElement("li");
+        const b = document.createElement("b");
+        b.textContent = fullLabel(ing);
+        li.append(b, " " + ing.name.toLowerCase());
+        list.appendChild(li);
+      });
+      box.hidden = false;
+    }else{
+      box.hidden = true;
+    }
+
+    const tip = $("#rTip");
+    if(s.tip){ tip.textContent = "💡 " + s.tip; tip.hidden = false; } else tip.hidden = true;
+
+    const tbox = $("#rTimerBox");
+    if(s.timer){
+      tbox.hidden = false;
+      remaining = s.timer;
+      paintClock();
+      $("#rTimerBtn").textContent = "Démarrer " + humanDuration(s.timer);
+      $("#rTimerReset").hidden = true;
+      $("#rClock").classList.remove("done");
+    }else{
+      tbox.hidden = true;
+    }
+
+    $("#rPrev").disabled = stepIdx === 0;
+    $("#rNext").textContent = stepIdx === STEPS.length-1 ? "Terminé ✓" : "Suivant →";
+    $("#rNext").focus({preventScroll:true});
+  }
+
+  function go(delta){
+    const next = stepIdx + delta;
+    if(next < 0) return;
+    if(next >= STEPS.length){ closeRunner(); return; }
+    stepIdx = next;
+    showStep();
+  }
+
+  /* ----------------------- minuteur ----------------------- */
+  function paintClock(){
+    const m = Math.floor(Math.max(0,remaining)/60), s = Math.max(0,remaining) % 60;
+    $("#rClock").textContent = String(m).padStart(2,"0") + ":" + String(s).padStart(2,"0");
+  }
+  function startTimer(){
+    if(running) { pauseTimer(); return; }
+    running = true;
+    $("#rTimerBtn").textContent = "Pause";
+    $("#rTimerReset").hidden = false;
+    const end = Date.now() + remaining*1000;
+    tick = setInterval(() => {
+      remaining = Math.round((end - Date.now())/1000);
+      paintClock();
+      if(remaining <= 0){
+        remaining = 0;
+        stopTimer();
+        $("#rClock").classList.add("done");
+        $("#rTimerBtn").textContent = "C'est prêt !";
+        beep();
+      }
+    }, 250);
+  }
+  function pauseTimer(){
+    clearInterval(tick); tick = null; running = false;
+    $("#rTimerBtn").textContent = "Reprendre";
+  }
+  function stopTimer(){
+    clearInterval(tick); tick = null; running = false;
+  }
+  function beep(){
+    try{
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if(!Ctx) return;
+      const ctx = new Ctx();
+      [0,0.28,0.56].forEach(t => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine"; o.frequency.value = 880;
+        g.gain.setValueAtTime(0.0001, ctx.currentTime + t);
+        g.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + t + 0.22);
+        o.connect(g).connect(ctx.destination);
+        o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + 0.25);
+      });
+      setTimeout(() => ctx.close(), 1500);
+    }catch(e){}
+    if(navigator.vibrate) navigator.vibrate([200,100,200]);
+  }
+
+  async function requestWakeLock(){
+    try{
+      if("wakeLock" in navigator) wakeLock = await navigator.wakeLock.request("screen");
+    }catch(e){}
+  }
+  function releaseWakeLock(){
+    try{ if(wakeLock){ wakeLock.release(); wakeLock = null; } }catch(e){}
+  }
+  document.addEventListener("visibilitychange", () => {
+    if(document.visibilityState === "visible" && runner.classList.contains("on")) requestWakeLock();
+  });
+
+  $("#start").addEventListener("click", () => openRunner(0));
+  $("#rClose").addEventListener("click", closeRunner);
+  $("#rPrev").addEventListener("click", () => go(-1));
+  $("#rNext").addEventListener("click", () => go(1));
+  $("#rTimerBtn").addEventListener("click", startTimer);
+  $("#rTimerReset").addEventListener("click", () => {
+    stopTimer();
+    remaining = STEPS[stepIdx].timer;
+    paintClock();
+    $("#rClock").classList.remove("done");
+    $("#rTimerBtn").textContent = "Démarrer " + humanDuration(remaining);
+    $("#rTimerReset").hidden = true;
+  });
+
+  document.addEventListener("keydown", e => {
+    if(!runner.classList.contains("on")) return;
+    if(e.key === "Escape") closeRunner();
+    else if(e.key === "ArrowRight") go(1);
+    else if(e.key === "ArrowLeft") go(-1);
+  });
+
+  /* ------------------------- démarrage ------------------------- */
+  renderAll();
+  renderPreview();
+})();
+</script>
+</body>
+</html>
