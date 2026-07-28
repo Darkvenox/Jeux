@@ -58,7 +58,18 @@
     -webkit-text-size-adjust:100%;
   }
   .wrap{max-width:760px;margin:0 auto;padding:20px 16px 64px}
-  .view[hidden]{display:none}
+
+  /* Sans JavaScript : navigation par ancres. Le menu s'affiche par défaut,
+     la recette quand elle est ciblée par #recipe. */
+  html:not(.js) .view{display:none}
+  html:not(.js) #menu{display:block}
+  html:not(.js) #recipe:target{display:block}
+  html:not(.js) #recipe:target ~ #menu{display:none}
+
+  /* Dès que le script a pris la main, c'est lui qui pilote l'affichage. */
+  html.js .view{display:block}
+  html.js .view[hidden]{display:none}
+  html:not(.js) .js-only{display:none}
 
   h1{margin:0;font-size:clamp(30px,8vw,44px);letter-spacing:-.025em;text-wrap:balance}
   .tagline{margin:8px 0 0;color:var(--ink-soft);font-size:16px}
@@ -84,6 +95,7 @@
   .btn:focus-visible,.round:focus-visible,.chip:focus-visible,.variant:focus-visible,.tick:focus-visible{
     outline:2px solid var(--accent);outline-offset:2px;
   }
+  a.btn{display:block;text-align:center;text-decoration:none}
   .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
   .btn.primary:hover{filter:brightness(1.05)}
   .btn.wide{flex:1;min-width:190px;text-align:center}
@@ -122,7 +134,7 @@
   .topbar{display:flex;align-items:center;gap:12px;margin-bottom:18px}
   .back{
     background:none;border:0;color:var(--ink-soft);font:inherit;font-size:15px;
-    cursor:pointer;padding:6px 2px;
+    cursor:pointer;padding:6px 2px;text-decoration:none;display:inline-block;
   }
   .back:hover{color:var(--accent)}
   .topbar .now{margin-left:auto;font-size:13px;color:var(--ink-soft)}
@@ -170,6 +182,7 @@
     background:transparent;border:1px solid transparent;border-radius:8px;
     padding:5px 6px;color:var(--ink);font-family:inherit;
   }
+  span.qty{display:inline-block}
   .qty:hover{border-color:var(--line)}
   .qty:focus{outline:none;border-color:var(--accent);background:var(--bg-soft)}
   .qty[disabled]{color:var(--ink-soft);font-weight:500}
@@ -226,6 +239,73 @@
 
   <p class="warn" id="diag" hidden></p>
 
+  <!-- La vue recette précède le menu dans le HTML : cela permet à la navigation
+       par ancres (#recipe / #menu) de fonctionner même sans JavaScript. -->
+
+  <!-- ================= Vue recette ================= -->
+  <section class="view" id="recipe">
+    <div class="topbar">
+      <a class="back" href="#menu" id="toMenu">‹ Menu</a>
+      <span class="now">Version <b id="variantNow">classique au rhum</b></span>
+    </div>
+
+    <section class="card">
+      <h2>Nombre de personnes</h2>
+      <div class="servings">
+        <div class="stepper">
+          <button class="round js-only" id="minus" aria-label="Une personne de moins">−</button>
+          <div class="count">
+            <strong id="servings">6</strong>
+            <span id="servingsLabel">personnes</span>
+          </div>
+          <button class="round js-only" id="plus" aria-label="Une personne de plus">+</button>
+        </div>
+      </div>
+      <div class="presets js-only" id="presets"></div>
+    </section>
+
+    <section class="card">
+      <div class="ing-head">
+        <h2 style="margin:0">Ingrédients</h2>
+        <span class="hint js-only">Modifiable : tapez une quantité</span>
+      </div>
+      <!-- Quantités de base pour 6 personnes ; le script les remplace et les ajuste. -->
+      <ul class="ings" id="ings">
+        <li><span class="qty">1</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">250</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">150</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">4</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">50</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">2</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">250</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">3</span><span class="unit">cl</span><span class="name">Rhum ambré<small>ou 15 cl de thé noir, version sans alcool</small></span></li>
+      </ul>
+      <p class="hint js-only" style="margin:14px 0 0">
+        💡 Changez la quantité d'un ingrédient (par ex. « j'ai 750 g de pruneaux ») :
+        toute la recette et le nombre de personnes s'ajustent automatiquement.
+      </p>
+      <div class="actions js-only">
+        <button class="btn wide primary" id="start">▶︎ Suivre la recette pas à pas</button>
+        <button class="btn" id="reset">Réinitialiser</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Les étapes en un coup d'œil</h2>
+      <ol class="preview" id="preview">
+        <li><b>Faire gonfler les pruneaux</b> — 10 min</li>
+        <li><b>Préchauffer le four</b> — 180 °C, plat beurré</li>
+        <li><b>Mélanger les poudres</b></li>
+        <li><b>Incorporer les œufs</b></li>
+        <li><b>Détendre au lait</b></li>
+        <li><b>Assembler</b></li>
+        <li><b>Cuisson</b> — 45 min</li>
+        <li><b>Repos et dégustation</b> — 30 min</li>
+      </ol>
+    </section>
+  </section>
+
   <!-- ================= Menu d'accueil ================= -->
   <section class="view" id="menu">
     <div class="hero-mark" aria-hidden="true">🍮</div>
@@ -237,64 +317,33 @@
       <span class="badge">😌 Très facile</span>
     </div>
 
-    <div class="menu-cards" id="variants"></div>
+    <!-- Cartes de choix : remplacées par des boutons dès que le script tourne. -->
+    <div class="menu-cards" id="variants">
+      <div class="variant" aria-hidden="true">
+        <span class="ico">🥃</span>
+        <span class="txt"><strong>Classique au rhum</strong>
+        <span>Pruneaux macérés au rhum ambré : la version des tables bretonnes.</span></span>
+      </div>
+      <div class="variant" aria-hidden="true">
+        <span class="ico">🍵</span>
+        <span class="txt"><strong>Sans alcool</strong>
+        <span>Pruneaux gonflés au thé noir, parfum fleur d'oranger. Pour les enfants et les grandes tablées.</span></span>
+      </div>
+    </div>
 
     <div class="menu-actions">
-      <button class="btn primary" id="goRecipe">Voir les ingrédients</button>
-      <button class="btn" id="goSteps">Démarrer directement le pas à pas</button>
+      <a class="btn primary" href="#recipe" id="goRecipe">Voir les ingrédients</a>
+      <a class="btn" href="#recipe" id="goSteps">Démarrer directement le pas à pas</a>
     </div>
 
     <p class="warn" id="jsWarn">
       <b>Les boutons ne répondent pas ?</b>
-      Cette page a besoin de JavaScript, et ce message disparaît dès qu'il s'exécute.
-      S'il reste affiché, vous êtes dans un aperçu qui bloque les scripts : ouvrez la page
-      dans Safari, Chrome ou Firefox.
+      Cette page a besoin de JavaScript pour ajuster les quantités et guider la cuisson,
+      et ce message disparaît dès qu'il s'exécute. S'il reste affiché, vous êtes dans un
+      aperçu qui bloque les scripts : la recette reste lisible pour 6 personnes, mais pour
+      tout le reste, ouvrez la page dans Safari, Chrome ou Firefox.
     </p>
     <p class="menu-note">Fonctionne hors ligne · vos réglages sont mémorisés</p>
-  </section>
-
-  <!-- ================= Vue recette ================= -->
-  <section class="view" id="recipe" hidden>
-    <div class="topbar">
-      <button class="back" id="toMenu">‹ Menu</button>
-      <span class="now">Version <b id="variantNow">classique</b></span>
-    </div>
-
-    <section class="card">
-      <h2>Nombre de personnes</h2>
-      <div class="servings">
-        <div class="stepper">
-          <button class="round" id="minus" aria-label="Une personne de moins">−</button>
-          <div class="count">
-            <strong id="servings">6</strong>
-            <span id="servingsLabel">personnes</span>
-          </div>
-          <button class="round" id="plus" aria-label="Une personne de plus">+</button>
-        </div>
-      </div>
-      <div class="presets" id="presets"></div>
-    </section>
-
-    <section class="card">
-      <div class="ing-head">
-        <h2 style="margin:0">Ingrédients</h2>
-        <span class="hint">Modifiable : tapez une quantité</span>
-      </div>
-      <ul class="ings" id="ings"></ul>
-      <p class="hint" style="margin:14px 0 0">
-        💡 Changez la quantité d'un ingrédient (par ex. « j'ai 750 g de pruneaux ») :
-        toute la recette et le nombre de personnes s'ajustent automatiquement.
-      </p>
-      <div class="actions">
-        <button class="btn wide primary" id="start">▶︎ Suivre la recette pas à pas</button>
-        <button class="btn" id="reset">Réinitialiser</button>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Les étapes en un coup d'œil</h2>
-      <ol class="preview" id="preview"></ol>
-    </section>
   </section>
 </div>
 
@@ -644,10 +693,17 @@
     ["menu","recipe"].forEach(v => { $("#" + v).hidden = (v !== id); });
     window.scrollTo(0,0);
   }
+  // Les entrées du menu sont des liens : sans script ils naviguent par ancre,
+  // avec script on intercepte pour éviter le saut de page.
+  function onNav(sel, fn){
+    const el = $(sel);
+    if(!el) return;
+    el.addEventListener("click", e => { e.preventDefault(); fn(); });
+  }
   function wireMenu(){
-    $("#goRecipe").addEventListener("click", () => showView("recipe"));
-    $("#goSteps").addEventListener("click", () => { showView("recipe"); openRunner(0); });
-    $("#toMenu").addEventListener("click", () => showView("menu"));
+    onNav("#goRecipe", () => showView("recipe"));
+    onNav("#goSteps",  () => { showView("recipe"); openRunner(0); });
+    onNav("#toMenu",   () => showView("menu"));
   }
 
   /* ------------------- contrôles portions ------------------- */
@@ -828,6 +884,9 @@
     runner = $("#runner");
     if(!ingsEl || !runner || !$("#goRecipe")) return false;
 
+    // À partir d'ici l'affichage est piloté par le script, plus par les ancres.
+    document.documentElement.classList.add("js");
+
     wireMenu();
     wireServings();
     wireRunner();
@@ -835,7 +894,7 @@
     renderVariants();
     renderAll();
     renderPreview();
-    showView("menu");
+    showView(location.hash === "#recipe" ? "recipe" : "menu");
     return true;
   }
 
