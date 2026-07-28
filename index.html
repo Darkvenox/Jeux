@@ -107,6 +107,16 @@
   .variant[aria-pressed="true"] .mark{opacity:1}
   .menu-actions{display:flex;flex-direction:column;gap:10px}
   .menu-note{color:var(--ink-soft);font-size:13.5px;margin-top:22px}
+  .warn{
+    margin:22px 0 0;padding:14px 16px;border-radius:12px;text-align:left;
+    background:#fdecdc;border:1px solid #e2a86a;color:#6b3d10;font-size:14px;
+  }
+  :root[data-theme="dark"] .warn{background:#3a2413;border-color:#8a5a26;color:#f6dcc0}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .warn{background:#3a2413;border-color:#8a5a26;color:#f6dcc0}
+  }
+  .warn b{display:block;margin-bottom:4px}
+  #diag{white-space:pre-wrap;word-break:break-word;font-size:12.5px;font-family:ui-monospace,monospace}
 
   /* ------------------ vue recette ------------------ */
   .topbar{display:flex;align-items:center;gap:12px;margin-bottom:18px}
@@ -214,6 +224,8 @@
 <body>
 <div class="wrap">
 
+  <p class="warn" id="diag" hidden></p>
+
   <!-- ================= Menu d'accueil ================= -->
   <section class="view" id="menu">
     <div class="hero-mark" aria-hidden="true">🍮</div>
@@ -232,6 +244,12 @@
       <button class="btn" id="goSteps">Démarrer directement le pas à pas</button>
     </div>
 
+    <p class="warn" id="jsWarn">
+      <b>Les boutons ne répondent pas ?</b>
+      Cette page a besoin de JavaScript, et ce message disparaît dès qu'il s'exécute.
+      S'il reste affiché, vous êtes dans un aperçu qui bloque les scripts : ouvrez la page
+      dans Safari, Chrome ou Firefox.
+    </p>
     <p class="menu-note">Fonctionne hors ligne · vos réglages sont mémorisés</p>
   </section>
 
@@ -310,6 +328,20 @@
 </div>
 
 <script>
+/* Le script tourne : on retire l'avertissement, et toute erreur devient visible
+   à l'écran plutôt que de laisser des boutons muets. */
+(function(){
+  var warn = document.getElementById("jsWarn");
+  if(warn) warn.remove();
+  window.addEventListener("error", function(e){
+    var d = document.getElementById("diag");
+    if(!d) return;
+    d.hidden = false;
+    d.textContent = "Erreur JavaScript : " + (e.message || e.type) +
+      (e.lineno ? " (ligne " + e.lineno + ")" : "");
+  });
+})();
+
 (function(){
   "use strict";
 
