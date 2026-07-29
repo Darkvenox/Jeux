@@ -73,12 +73,18 @@
 
   /* --------- pilotage sans JavaScript : version et nombre de personnes ---------
      Les boutons radio en tête de page sont invisibles ; les labels (cartes de
-     version, raccourcis « 6 pers. ») les cochent, et le CSS affiche la liste
-     d'ingrédients pré-calculée correspondante. */
+     version, raccourcis, − et +) les cochent, et le CSS affiche la liste
+     d'ingrédients pré-calculée qui correspond. */
   .state{position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none}
-  html.js .nojs-only{display:none}
+  html.js .nojs-only,
+  html.js .st-dec,
+  html.js .st-inc{display:none}
+  .round.dis{opacity:.35;cursor:default}
   html:not(.js) .vn,
-  html:not(.js) .sv{display:none}
+  html:not(.js) .sv,
+  html:not(.js) .pl,
+  html:not(.js) .st-dec,
+  html:not(.js) .st-inc{display:none}
   html:not(.js) .ings-static{display:none}
   html:not(.js) #vC:checked ~ .wrap .vn-c,
   html:not(.js) #vS:checked ~ .wrap .vn-s{display:inline}
@@ -86,30 +92,156 @@
   html:not(.js) #vS:checked ~ .wrap label[for="vS"]{border-color:var(--accent);background:var(--accent-soft)}
   html:not(.js) #vC:checked ~ .wrap label[for="vC"] .mark,
   html:not(.js) #vS:checked ~ .wrap label[for="vS"] .mark{opacity:1}
+  html:not(.js) #n1:checked ~ .wrap .pl-1{display:inline}
+  html:not(.js) #n2:checked ~ .wrap .pl-n,
+  html:not(.js) #n3:checked ~ .wrap .pl-n,
+  html:not(.js) #n4:checked ~ .wrap .pl-n,
+  html:not(.js) #n5:checked ~ .wrap .pl-n,
+  html:not(.js) #n6:checked ~ .wrap .pl-n,
+  html:not(.js) #n7:checked ~ .wrap .pl-n,
+  html:not(.js) #n8:checked ~ .wrap .pl-n,
+  html:not(.js) #n9:checked ~ .wrap .pl-n,
+  html:not(.js) #n10:checked ~ .wrap .pl-n,
+  html:not(.js) #n11:checked ~ .wrap .pl-n,
+  html:not(.js) #n12:checked ~ .wrap .pl-n,
+  html:not(.js) #n13:checked ~ .wrap .pl-n,
+  html:not(.js) #n14:checked ~ .wrap .pl-n,
+  html:not(.js) #n15:checked ~ .wrap .pl-n,
+  html:not(.js) #n16:checked ~ .wrap .pl-n,
+  html:not(.js) #n17:checked ~ .wrap .pl-n,
+  html:not(.js) #n18:checked ~ .wrap .pl-n,
+  html:not(.js) #n19:checked ~ .wrap .pl-n,
+  html:not(.js) #n20:checked ~ .wrap .pl-n,
+  html:not(.js) #n21:checked ~ .wrap .pl-n,
+  html:not(.js) #n22:checked ~ .wrap .pl-n,
+  html:not(.js) #n23:checked ~ .wrap .pl-n,
+  html:not(.js) #n24:checked ~ .wrap .pl-n{display:inline}
+  html:not(.js) #n1:checked ~ .wrap .sv-1,
   html:not(.js) #n2:checked ~ .wrap .sv-2,
+  html:not(.js) #n3:checked ~ .wrap .sv-3,
   html:not(.js) #n4:checked ~ .wrap .sv-4,
+  html:not(.js) #n5:checked ~ .wrap .sv-5,
   html:not(.js) #n6:checked ~ .wrap .sv-6,
+  html:not(.js) #n7:checked ~ .wrap .sv-7,
   html:not(.js) #n8:checked ~ .wrap .sv-8,
+  html:not(.js) #n9:checked ~ .wrap .sv-9,
   html:not(.js) #n10:checked ~ .wrap .sv-10,
-  html:not(.js) #n12:checked ~ .wrap .sv-12{display:inline}
-  html:not(.js) #n2:checked ~ .wrap label[for="n2"],
-  html:not(.js) #n4:checked ~ .wrap label[for="n4"],
-  html:not(.js) #n6:checked ~ .wrap label[for="n6"],
-  html:not(.js) #n8:checked ~ .wrap label[for="n8"],
-  html:not(.js) #n10:checked ~ .wrap label[for="n10"],
-  html:not(.js) #n12:checked ~ .wrap label[for="n12"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+  html:not(.js) #n11:checked ~ .wrap .sv-11,
+  html:not(.js) #n12:checked ~ .wrap .sv-12,
+  html:not(.js) #n13:checked ~ .wrap .sv-13,
+  html:not(.js) #n14:checked ~ .wrap .sv-14,
+  html:not(.js) #n15:checked ~ .wrap .sv-15,
+  html:not(.js) #n16:checked ~ .wrap .sv-16,
+  html:not(.js) #n17:checked ~ .wrap .sv-17,
+  html:not(.js) #n18:checked ~ .wrap .sv-18,
+  html:not(.js) #n19:checked ~ .wrap .sv-19,
+  html:not(.js) #n20:checked ~ .wrap .sv-20,
+  html:not(.js) #n21:checked ~ .wrap .sv-21,
+  html:not(.js) #n22:checked ~ .wrap .sv-22,
+  html:not(.js) #n23:checked ~ .wrap .sv-23,
+  html:not(.js) #n24:checked ~ .wrap .sv-24{display:inline}
+  html:not(.js) #n1:checked ~ .wrap .dec-1,
+  html:not(.js) #n2:checked ~ .wrap .dec-2,
+  html:not(.js) #n3:checked ~ .wrap .dec-3,
+  html:not(.js) #n4:checked ~ .wrap .dec-4,
+  html:not(.js) #n5:checked ~ .wrap .dec-5,
+  html:not(.js) #n6:checked ~ .wrap .dec-6,
+  html:not(.js) #n7:checked ~ .wrap .dec-7,
+  html:not(.js) #n8:checked ~ .wrap .dec-8,
+  html:not(.js) #n9:checked ~ .wrap .dec-9,
+  html:not(.js) #n10:checked ~ .wrap .dec-10,
+  html:not(.js) #n11:checked ~ .wrap .dec-11,
+  html:not(.js) #n12:checked ~ .wrap .dec-12,
+  html:not(.js) #n13:checked ~ .wrap .dec-13,
+  html:not(.js) #n14:checked ~ .wrap .dec-14,
+  html:not(.js) #n15:checked ~ .wrap .dec-15,
+  html:not(.js) #n16:checked ~ .wrap .dec-16,
+  html:not(.js) #n17:checked ~ .wrap .dec-17,
+  html:not(.js) #n18:checked ~ .wrap .dec-18,
+  html:not(.js) #n19:checked ~ .wrap .dec-19,
+  html:not(.js) #n20:checked ~ .wrap .dec-20,
+  html:not(.js) #n21:checked ~ .wrap .dec-21,
+  html:not(.js) #n22:checked ~ .wrap .dec-22,
+  html:not(.js) #n23:checked ~ .wrap .dec-23,
+  html:not(.js) #n24:checked ~ .wrap .dec-24,
+  html:not(.js) #n1:checked ~ .wrap .inc-1,
+  html:not(.js) #n2:checked ~ .wrap .inc-2,
+  html:not(.js) #n3:checked ~ .wrap .inc-3,
+  html:not(.js) #n4:checked ~ .wrap .inc-4,
+  html:not(.js) #n5:checked ~ .wrap .inc-5,
+  html:not(.js) #n6:checked ~ .wrap .inc-6,
+  html:not(.js) #n7:checked ~ .wrap .inc-7,
+  html:not(.js) #n8:checked ~ .wrap .inc-8,
+  html:not(.js) #n9:checked ~ .wrap .inc-9,
+  html:not(.js) #n10:checked ~ .wrap .inc-10,
+  html:not(.js) #n11:checked ~ .wrap .inc-11,
+  html:not(.js) #n12:checked ~ .wrap .inc-12,
+  html:not(.js) #n13:checked ~ .wrap .inc-13,
+  html:not(.js) #n14:checked ~ .wrap .inc-14,
+  html:not(.js) #n15:checked ~ .wrap .inc-15,
+  html:not(.js) #n16:checked ~ .wrap .inc-16,
+  html:not(.js) #n17:checked ~ .wrap .inc-17,
+  html:not(.js) #n18:checked ~ .wrap .inc-18,
+  html:not(.js) #n19:checked ~ .wrap .inc-19,
+  html:not(.js) #n20:checked ~ .wrap .inc-20,
+  html:not(.js) #n21:checked ~ .wrap .inc-21,
+  html:not(.js) #n22:checked ~ .wrap .inc-22,
+  html:not(.js) #n23:checked ~ .wrap .inc-23,
+  html:not(.js) #n24:checked ~ .wrap .inc-24{display:flex}
+  html:not(.js) #n2:checked ~ .wrap label[for="n2"].chip,
+  html:not(.js) #n4:checked ~ .wrap label[for="n4"].chip,
+  html:not(.js) #n6:checked ~ .wrap label[for="n6"].chip,
+  html:not(.js) #n8:checked ~ .wrap label[for="n8"].chip,
+  html:not(.js) #n10:checked ~ .wrap label[for="n10"].chip,
+  html:not(.js) #n12:checked ~ .wrap label[for="n12"].chip{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+  html:not(.js) #vC:checked ~ #n1:checked ~ .wrap .st-c-1,
   html:not(.js) #vC:checked ~ #n2:checked ~ .wrap .st-c-2,
+  html:not(.js) #vC:checked ~ #n3:checked ~ .wrap .st-c-3,
   html:not(.js) #vC:checked ~ #n4:checked ~ .wrap .st-c-4,
+  html:not(.js) #vC:checked ~ #n5:checked ~ .wrap .st-c-5,
   html:not(.js) #vC:checked ~ #n6:checked ~ .wrap .st-c-6,
+  html:not(.js) #vC:checked ~ #n7:checked ~ .wrap .st-c-7,
   html:not(.js) #vC:checked ~ #n8:checked ~ .wrap .st-c-8,
+  html:not(.js) #vC:checked ~ #n9:checked ~ .wrap .st-c-9,
   html:not(.js) #vC:checked ~ #n10:checked ~ .wrap .st-c-10,
+  html:not(.js) #vC:checked ~ #n11:checked ~ .wrap .st-c-11,
   html:not(.js) #vC:checked ~ #n12:checked ~ .wrap .st-c-12,
+  html:not(.js) #vC:checked ~ #n13:checked ~ .wrap .st-c-13,
+  html:not(.js) #vC:checked ~ #n14:checked ~ .wrap .st-c-14,
+  html:not(.js) #vC:checked ~ #n15:checked ~ .wrap .st-c-15,
+  html:not(.js) #vC:checked ~ #n16:checked ~ .wrap .st-c-16,
+  html:not(.js) #vC:checked ~ #n17:checked ~ .wrap .st-c-17,
+  html:not(.js) #vC:checked ~ #n18:checked ~ .wrap .st-c-18,
+  html:not(.js) #vC:checked ~ #n19:checked ~ .wrap .st-c-19,
+  html:not(.js) #vC:checked ~ #n20:checked ~ .wrap .st-c-20,
+  html:not(.js) #vC:checked ~ #n21:checked ~ .wrap .st-c-21,
+  html:not(.js) #vC:checked ~ #n22:checked ~ .wrap .st-c-22,
+  html:not(.js) #vC:checked ~ #n23:checked ~ .wrap .st-c-23,
+  html:not(.js) #vC:checked ~ #n24:checked ~ .wrap .st-c-24,
+  html:not(.js) #vS:checked ~ #n1:checked ~ .wrap .st-s-1,
   html:not(.js) #vS:checked ~ #n2:checked ~ .wrap .st-s-2,
+  html:not(.js) #vS:checked ~ #n3:checked ~ .wrap .st-s-3,
   html:not(.js) #vS:checked ~ #n4:checked ~ .wrap .st-s-4,
+  html:not(.js) #vS:checked ~ #n5:checked ~ .wrap .st-s-5,
   html:not(.js) #vS:checked ~ #n6:checked ~ .wrap .st-s-6,
+  html:not(.js) #vS:checked ~ #n7:checked ~ .wrap .st-s-7,
   html:not(.js) #vS:checked ~ #n8:checked ~ .wrap .st-s-8,
+  html:not(.js) #vS:checked ~ #n9:checked ~ .wrap .st-s-9,
   html:not(.js) #vS:checked ~ #n10:checked ~ .wrap .st-s-10,
-  html:not(.js) #vS:checked ~ #n12:checked ~ .wrap .st-s-12{display:block}
+  html:not(.js) #vS:checked ~ #n11:checked ~ .wrap .st-s-11,
+  html:not(.js) #vS:checked ~ #n12:checked ~ .wrap .st-s-12,
+  html:not(.js) #vS:checked ~ #n13:checked ~ .wrap .st-s-13,
+  html:not(.js) #vS:checked ~ #n14:checked ~ .wrap .st-s-14,
+  html:not(.js) #vS:checked ~ #n15:checked ~ .wrap .st-s-15,
+  html:not(.js) #vS:checked ~ #n16:checked ~ .wrap .st-s-16,
+  html:not(.js) #vS:checked ~ #n17:checked ~ .wrap .st-s-17,
+  html:not(.js) #vS:checked ~ #n18:checked ~ .wrap .st-s-18,
+  html:not(.js) #vS:checked ~ #n19:checked ~ .wrap .st-s-19,
+  html:not(.js) #vS:checked ~ #n20:checked ~ .wrap .st-s-20,
+  html:not(.js) #vS:checked ~ #n21:checked ~ .wrap .st-s-21,
+  html:not(.js) #vS:checked ~ #n22:checked ~ .wrap .st-s-22,
+  html:not(.js) #vS:checked ~ #n23:checked ~ .wrap .st-s-23,
+  html:not(.js) #vS:checked ~ #n24:checked ~ .wrap .st-s-24{display:block}
 
   h1{margin:0;font-size:clamp(30px,8vw,44px);letter-spacing:-.025em;text-wrap:balance}
   .tagline{margin:8px 0 0;color:var(--ink-soft);font-size:16px}
@@ -279,12 +411,30 @@
      choisie et le nombre de personnes. Le script les ignore. -->
 <input type="radio" name="far-variante" id="vC" class="state" checked>
 <input type="radio" name="far-variante" id="vS" class="state">
+<input type="radio" name="far-pers" id="n1" class="state">
 <input type="radio" name="far-pers" id="n2" class="state">
+<input type="radio" name="far-pers" id="n3" class="state">
 <input type="radio" name="far-pers" id="n4" class="state">
+<input type="radio" name="far-pers" id="n5" class="state">
 <input type="radio" name="far-pers" id="n6" class="state" checked>
+<input type="radio" name="far-pers" id="n7" class="state">
 <input type="radio" name="far-pers" id="n8" class="state">
+<input type="radio" name="far-pers" id="n9" class="state">
 <input type="radio" name="far-pers" id="n10" class="state">
+<input type="radio" name="far-pers" id="n11" class="state">
 <input type="radio" name="far-pers" id="n12" class="state">
+<input type="radio" name="far-pers" id="n13" class="state">
+<input type="radio" name="far-pers" id="n14" class="state">
+<input type="radio" name="far-pers" id="n15" class="state">
+<input type="radio" name="far-pers" id="n16" class="state">
+<input type="radio" name="far-pers" id="n17" class="state">
+<input type="radio" name="far-pers" id="n18" class="state">
+<input type="radio" name="far-pers" id="n19" class="state">
+<input type="radio" name="far-pers" id="n20" class="state">
+<input type="radio" name="far-pers" id="n21" class="state">
+<input type="radio" name="far-pers" id="n22" class="state">
+<input type="radio" name="far-pers" id="n23" class="state">
+<input type="radio" name="far-pers" id="n24" class="state">
 
 <div class="wrap">
 
@@ -305,10 +455,12 @@
       <div class="servings">
         <div class="stepper">
           <button class="round js-only" id="minus" aria-label="Une personne de moins">−</button>
+          <span class="round st-dec dec-1 dis">−</span><label class="round st-dec dec-2" for="n1">−</label><label class="round st-dec dec-3" for="n2">−</label><label class="round st-dec dec-4" for="n3">−</label><label class="round st-dec dec-5" for="n4">−</label><label class="round st-dec dec-6" for="n5">−</label><label class="round st-dec dec-7" for="n6">−</label><label class="round st-dec dec-8" for="n7">−</label><label class="round st-dec dec-9" for="n8">−</label><label class="round st-dec dec-10" for="n9">−</label><label class="round st-dec dec-11" for="n10">−</label><label class="round st-dec dec-12" for="n11">−</label><label class="round st-dec dec-13" for="n12">−</label><label class="round st-dec dec-14" for="n13">−</label><label class="round st-dec dec-15" for="n14">−</label><label class="round st-dec dec-16" for="n15">−</label><label class="round st-dec dec-17" for="n16">−</label><label class="round st-dec dec-18" for="n17">−</label><label class="round st-dec dec-19" for="n18">−</label><label class="round st-dec dec-20" for="n19">−</label><label class="round st-dec dec-21" for="n20">−</label><label class="round st-dec dec-22" for="n21">−</label><label class="round st-dec dec-23" for="n22">−</label><label class="round st-dec dec-24" for="n23">−</label>
           <div class="count">
-            <strong id="servings"><span class="sv sv-2">2</span><span class="sv sv-4">4</span><span class="sv sv-6">6</span><span class="sv sv-8">8</span><span class="sv sv-10">10</span><span class="sv sv-12">12</span></strong>
-            <span id="servingsLabel">personnes</span>
+            <strong id="servings"><span class="sv sv-1">1</span><span class="sv sv-2">2</span><span class="sv sv-3">3</span><span class="sv sv-4">4</span><span class="sv sv-5">5</span><span class="sv sv-6">6</span><span class="sv sv-7">7</span><span class="sv sv-8">8</span><span class="sv sv-9">9</span><span class="sv sv-10">10</span><span class="sv sv-11">11</span><span class="sv sv-12">12</span><span class="sv sv-13">13</span><span class="sv sv-14">14</span><span class="sv sv-15">15</span><span class="sv sv-16">16</span><span class="sv sv-17">17</span><span class="sv sv-18">18</span><span class="sv sv-19">19</span><span class="sv sv-20">20</span><span class="sv sv-21">21</span><span class="sv sv-22">22</span><span class="sv sv-23">23</span><span class="sv sv-24">24</span></strong>
+            <span id="servingsLabel"><span class="pl pl-1">personne</span><span class="pl pl-n">personnes</span></span>
           </div>
+          <label class="round st-inc inc-1" for="n2">+</label><label class="round st-inc inc-2" for="n3">+</label><label class="round st-inc inc-3" for="n4">+</label><label class="round st-inc inc-4" for="n5">+</label><label class="round st-inc inc-5" for="n6">+</label><label class="round st-inc inc-6" for="n7">+</label><label class="round st-inc inc-7" for="n8">+</label><label class="round st-inc inc-8" for="n9">+</label><label class="round st-inc inc-9" for="n10">+</label><label class="round st-inc inc-10" for="n11">+</label><label class="round st-inc inc-11" for="n12">+</label><label class="round st-inc inc-12" for="n13">+</label><label class="round st-inc inc-13" for="n14">+</label><label class="round st-inc inc-14" for="n15">+</label><label class="round st-inc inc-15" for="n16">+</label><label class="round st-inc inc-16" for="n17">+</label><label class="round st-inc inc-17" for="n18">+</label><label class="round st-inc inc-18" for="n19">+</label><label class="round st-inc inc-19" for="n20">+</label><label class="round st-inc inc-20" for="n21">+</label><label class="round st-inc inc-21" for="n22">+</label><label class="round st-inc inc-22" for="n23">+</label><label class="round st-inc inc-23" for="n24">+</label><span class="round st-inc inc-24 dis">+</span>
           <button class="round js-only" id="plus" aria-label="Une personne de plus">+</button>
         </div>
       </div>
@@ -322,6 +474,17 @@
       </div>
       <ul class="ings js-only" id="ings"></ul>
       <!-- STATIC:BEGIN — listes pré-calculées, régénérées par tools/build-static.js -->
+      <ul class="ings ings-static st-c-1">
+        <li><span class="qty">170</span><span class="unit">ml</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">42</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">25</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">1</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">8</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">1</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">42</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">0,5</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
       <ul class="ings ings-static st-c-2">
         <li><span class="qty">330</span><span class="unit">ml</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
         <li><span class="qty">85</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
@@ -332,6 +495,17 @@
         <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
         <li><span class="qty">85</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
         <li><span class="qty">1</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-3">
+        <li><span class="qty">500</span><span class="unit">ml</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">125</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">75</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">2</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">25</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">1</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">125</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">1,5</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
       </ul>
       <ul class="ings ings-static st-c-4">
         <li><span class="qty">670</span><span class="unit">ml</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
@@ -344,6 +518,17 @@
         <li><span class="qty">165</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
         <li><span class="qty">2</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
       </ul>
+      <ul class="ings ings-static st-c-5">
+        <li><span class="qty">830</span><span class="unit">ml</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">210</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">125</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">3</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">42</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">2</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">210</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">2,5</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
       <ul class="ings ings-static st-c-6">
         <li><span class="qty">1</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
         <li><span class="qty">250</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
@@ -354,6 +539,17 @@
         <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
         <li><span class="qty">250</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
         <li><span class="qty">3</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-7">
+        <li><span class="qty">1,2</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">290</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">175</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">5</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">60</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">2</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">290</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">3,5</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
       </ul>
       <ul class="ings ings-static st-c-8">
         <li><span class="qty">1,3</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
@@ -366,6 +562,17 @@
         <li><span class="qty">330</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
         <li><span class="qty">4</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
       </ul>
+      <ul class="ings ings-static st-c-9">
+        <li><span class="qty">1,5</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">380</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">230</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">6</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">75</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">3</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">380</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">4,5</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
       <ul class="ings ings-static st-c-10">
         <li><span class="qty">1,7</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
         <li><span class="qty">420</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
@@ -376,6 +583,17 @@
         <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
         <li><span class="qty">420</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
         <li><span class="qty">5</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-11">
+        <li><span class="qty">1,8</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">460</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">280</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">7</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">90</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">4</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">460</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">5,5</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
       </ul>
       <ul class="ings ings-static st-c-12">
         <li><span class="qty">2</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
@@ -388,6 +606,150 @@
         <li><span class="qty">500</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
         <li><span class="qty">6</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
       </ul>
+      <ul class="ings ings-static st-c-13">
+        <li><span class="qty">2,2</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">540</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">330</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">9</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">110</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">4</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">540</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">6,5</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-14">
+        <li><span class="qty">2,3</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">580</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">350</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">9</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">115</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">5</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">580</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">7</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-15">
+        <li><span class="qty">2,5</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">630</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">380</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">10</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">125</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">5</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">630</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">7,5</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-16">
+        <li><span class="qty">2,7</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">670</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">400</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">11</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">135</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">5</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">670</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">8</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-17">
+        <li><span class="qty">2,8</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">710</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">430</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">11</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">140</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">6</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">710</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">8,5</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-18">
+        <li><span class="qty">3</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">750</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">450</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">12</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">150</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">6</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">750</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">9</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-19">
+        <li><span class="qty">3,2</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">790</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">480</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">13</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">160</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">6</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">790</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">9,5</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-20">
+        <li><span class="qty">3,3</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">830</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">500</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">13</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">165</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">7</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">830</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">10</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-21">
+        <li><span class="qty">3,5</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">880</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">530</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">14</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">175</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">7</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">880</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">11</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-22">
+        <li><span class="qty">3,7</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">920</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">550</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">15</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">185</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">7</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">920</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">11</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-23">
+        <li><span class="qty">3,8</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">960</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">580</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">15</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">190</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">8</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">960</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">12</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-c-24">
+        <li><span class="qty">4</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">1000</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">600</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">16</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">200</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">8</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">1000</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">12</span><span class="unit">cl</span><span class="name">Rhum ambré<small>pour faire macérer les pruneaux</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-1">
+        <li><span class="qty">170</span><span class="unit">ml</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">42</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">25</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">1</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">8</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">1</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">42</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">2,5</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">1</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
       <ul class="ings ings-static st-s-2">
         <li><span class="qty">330</span><span class="unit">ml</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
         <li><span class="qty">85</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
@@ -398,6 +760,18 @@
         <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
         <li><span class="qty">85</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
         <li><span class="qty">5</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">1</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-3">
+        <li><span class="qty">500</span><span class="unit">ml</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">125</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">75</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">2</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">25</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">1</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">125</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">7,5</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
         <li><span class="qty">1</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
       </ul>
       <ul class="ings ings-static st-s-4">
@@ -412,6 +786,18 @@
         <li><span class="qty">10</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
         <li><span class="qty">1</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
       </ul>
+      <ul class="ings ings-static st-s-5">
+        <li><span class="qty">830</span><span class="unit">ml</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">210</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">125</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">3</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">42</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">2</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">210</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">13</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">1</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
       <ul class="ings ings-static st-s-6">
         <li><span class="qty">1</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
         <li><span class="qty">250</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
@@ -422,6 +808,18 @@
         <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
         <li><span class="qty">250</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
         <li><span class="qty">15</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">1</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-7">
+        <li><span class="qty">1,2</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">290</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">175</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">5</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">60</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">2</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">290</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">18</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
         <li><span class="qty">1</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
       </ul>
       <ul class="ings ings-static st-s-8">
@@ -436,6 +834,18 @@
         <li><span class="qty">20</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
         <li><span class="qty">1</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
       </ul>
+      <ul class="ings ings-static st-s-9">
+        <li><span class="qty">1,5</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">380</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">230</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">6</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">75</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">3</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">380</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">23</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">2</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
       <ul class="ings ings-static st-s-10">
         <li><span class="qty">1,7</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
         <li><span class="qty">420</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
@@ -446,6 +856,18 @@
         <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
         <li><span class="qty">420</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
         <li><span class="qty">25</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">2</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-11">
+        <li><span class="qty">1,8</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">460</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">280</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">7</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">90</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">4</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">460</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">28</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
         <li><span class="qty">2</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
       </ul>
       <ul class="ings ings-static st-s-12">
@@ -459,6 +881,150 @@
         <li><span class="qty">500</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
         <li><span class="qty">30</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
         <li><span class="qty">2</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-13">
+        <li><span class="qty">2,2</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">540</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">330</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">9</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">110</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">4</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">540</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">33</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">2</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-14">
+        <li><span class="qty">2,3</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">580</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">350</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">9</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">115</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">5</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">580</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">35</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">2</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-15">
+        <li><span class="qty">2,5</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">630</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">380</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">10</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">125</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">5</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">630</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">38</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">3</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-16">
+        <li><span class="qty">2,7</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">670</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">400</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">11</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">135</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">5</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">670</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">40</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">3</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-17">
+        <li><span class="qty">2,8</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">710</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">430</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">11</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">140</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">6</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">710</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">43</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">3</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-18">
+        <li><span class="qty">3</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">750</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">450</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">12</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">150</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">6</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">750</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">45</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">3</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-19">
+        <li><span class="qty">3,2</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">790</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">480</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">13</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">160</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">6</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">790</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">48</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">3</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-20">
+        <li><span class="qty">3,3</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">830</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">500</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">13</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">165</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">7</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">830</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">50</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">3</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-21">
+        <li><span class="qty">3,5</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">880</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">530</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">14</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">175</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">7</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">880</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">53</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">4</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-22">
+        <li><span class="qty">3,7</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">920</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">550</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">15</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">185</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">7</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">920</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">55</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">4</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-23">
+        <li><span class="qty">3,8</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">960</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">580</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">15</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">190</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">8</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">960</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">58</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">4</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
+      </ul>
+      <ul class="ings ings-static st-s-24">
+        <li><span class="qty">4</span><span class="unit">L</span><span class="name">Lait entier<small>tiédi, c'est mieux</small></span></li>
+        <li><span class="qty">1000</span><span class="unit">g</span><span class="name">Farine de blé T45/T55</span></li>
+        <li><span class="qty">600</span><span class="unit">g</span><span class="name">Sucre en poudre</span></li>
+        <li><span class="qty">16</span><span class="unit"></span><span class="name">Œufs entiers</span></li>
+        <li><span class="qty">200</span><span class="unit">g</span><span class="name">Beurre demi-sel<small>fondu + un peu pour le plat</small></span></li>
+        <li><span class="qty">8</span><span class="unit">cc</span><span class="name">Sucre vanillé<small>ou 1 gousse de vanille</small></span></li>
+        <li><span class="qty">1</span><span class="unit">pincée</span><span class="name">Sel fin</span></li>
+        <li><span class="qty">1000</span><span class="unit">g</span><span class="name">Pruneaux dénoyautés</span></li>
+        <li><span class="qty">60</span><span class="unit">cl</span><span class="name">Thé noir infusé<small>bien chaud, pour gonfler les pruneaux</small></span></li>
+        <li><span class="qty">4</span><span class="unit">cc</span><span class="name">Eau de fleur d'oranger<small>le parfum qui remplace le rhum</small></span></li>
       </ul>
       <!-- STATIC:END -->
       <p class="hint js-only" style="margin:14px 0 0">
@@ -520,10 +1086,10 @@
 
     <p class="warn" id="jsWarn">
       <b>Mode simplifié</b>
-      Les scripts sont bloqués ici : choisissez la version et le nombre de personnes
-      ci-dessous, la recette s'affiche avec les bonnes quantités. Pour taper une quantité
-      libre, ajuster au détail près ou suivre la cuisson pas à pas avec minuteurs,
-      ouvrez cette page dans Safari, Chrome ou Firefox.
+      Les scripts sont bloqués ici, mais l'essentiel fonctionne : choisissez la version
+      ci-dessous, puis réglez le nombre de personnes de 1 à 24 avec − et + dans la recette.
+      Pour taper une quantité libre, dépasser 24 personnes ou suivre la cuisson pas à pas
+      avec minuteurs, ouvrez cette page dans Safari, Chrome ou Firefox.
     </p>
     <p class="menu-note">Fonctionne hors ligne · vos réglages sont mémorisés</p>
   </section>

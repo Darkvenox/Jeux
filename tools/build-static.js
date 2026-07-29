@@ -17,7 +17,9 @@ const path = require("path");
 const { chromium } = require("playwright");
 
 const FILE = path.join(__dirname, "..", "index.html");
-const SERVINGS = [2, 4, 6, 8, 10, 12];
+const MAX_SERVINGS = 24;                     // au-delà, il faut un navigateur
+const PRESETS = [2, 4, 6, 8, 10, 12];        // raccourcis rendus par l'application
+const SERVINGS = Array.from({ length: MAX_SERVINGS }, (_, i) => i + 1);
 const VARIANTS = [{ id: "c", index: 1 }, { id: "s", index: 2 }];
 
 const esc = t => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -37,7 +39,15 @@ const esc = t => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&
     for (const n of SERVINGS) {
       await page.click(`#variants .variant:nth-child(${v.index})`);
       await page.click("#goRecipe").catch(() => {});
-      await page.click(`#presets .chip:nth-child(${SERVINGS.indexOf(n) + 1})`);
+
+      // on part du raccourci le plus proche, puis on ajuste au bouton ± de l'application
+      const near = PRESETS.reduce((a, b) => Math.abs(b - n) < Math.abs(a - n) ? b : a);
+      await page.click(`#presets .chip:nth-child(${PRESETS.indexOf(near) + 1})`);
+      for (let k = near; k < n; k++) await page.click("#plus");
+      for (let k = near; k > n; k--) await page.click("#minus");
+      const shown = Number(await page.textContent("#servings"));
+      if (shown !== n) throw new Error(`réglage raté : ${shown} personnes au lieu de ${n}`);
+
       const rows = await page.$$eval("#ings li", ls => ls.map(li => ({
         qty: li.querySelector(".qty").value,
         unit: li.querySelector(".unit").textContent,
