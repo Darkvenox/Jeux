@@ -43,6 +43,30 @@ depuis un téléphone posé sur le plan de travail.
 **Présentation**
 - thème clair / sombre automatique, mise en page responsive (mobile en premier)
 
+## Sans JavaScript
+
+Certaines visionneuses (aperçu de fichier sur mobile, pièce jointe dans une messagerie)
+affichent le HTML sans exécuter les scripts. La page reste utilisable :
+
+- navigation menu ↔ recette par ancres (`#recipe:target`)
+- choix de la version et du nombre de personnes par boutons radio + labels, en CSS pur
+- quantités pré-calculées pour 2, 4, 6, 8, 10 et 12 personnes dans les deux versions
+- les commandes qui exigent le script (± , saisie libre, pas à pas) sont masquées,
+  et un encadré explique comment retrouver la version complète
+
+Dès que le script s'exécute, il pose la classe `js` sur `<html>` et reprend la main
+sur l'affichage.
+
+Les listes figées sont générées depuis l'application elle-même — la page est ouverte
+dans un navigateur et les valeurs affichées sont relevées telles quelles :
+
+```sh
+npm i playwright
+node tools/build-static.js     # réécrit le bloc entre STATIC:BEGIN et STATIC:END
+```
+
+À relancer après toute modification des ingrédients ou des règles d'arrondi.
+
 ## Structure
 
 Tout tient dans `index.html`. La recette est décrite en haut du script, facile à modifier :
