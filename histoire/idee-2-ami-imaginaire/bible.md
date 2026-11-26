@@ -1,6 +1,6 @@
 # Bible de l'histoire — titre provisoire : « La place est libre ? »
 
-**Statut : BROUILLON v1.** Tout ce qui est marqué *(à valider)* est une proposition de Claude, pas une décision.
+**Statut : BROUILLON v2.** Tout ce qui est marqué *(à valider)* est une proposition de Claude, pas une décision.
 **Co-auteurs :** l'utilisateur (intention et décision finale sur le fond) et Claude (cohérence, objections, propositions).
 **Format visé :** nouvelle courte, 2 500 à 3 500 mots *(à valider)*.
 
@@ -24,6 +24,8 @@ Le déni la protège : reconnaître qu'il n'existe pas, c'est perdre son seul am
 
 Le texte ne condamne pas Manon et ne présente pas son anxiété comme une faute. Les autres ont leur part : personne n'a remarqué.
 
+**Ambivalence centrale (décidée) :** Noé est ce que Manon voudrait être, alors qu'elle déteste les gens comme lui. Reconnaître qu'il vient d'elle, c'est reconnaître qu'elle envie ce qu'elle méprise.
+
 ## 3. Règles du monde
 
 - Monde contemporain, entièrement réaliste. **Aucun élément surnaturel.**
@@ -33,6 +35,11 @@ Le texte ne condamne pas Manon et ne présente pas son anxiété comme une faute
 - Rien n'est jamais expliqué médicalement. Pas de diagnostic, pas de psychologue qui « explique ».
 - Ses justifications sont plausibles pour elle (« il est timide », « il n'aime pas les photos »), jamais absurdes.
 - Dans la seconde moitié, il devient moins confortable et la pousse vers de vraies personnes.
+- **Noé est la personnification de ce que Manon voudrait être** (alter ego idéalisé, personnage séparé : elle lui parle, il répond). *(décidé)*
+- **Moralement :** il reste toujours du côté de Manon, mais il est discutable pour la société (transgressions).
+- **Logique clé :** Noé n'existe pas, donc ce qu'il « fait », c'est Manon qui le fait. Il lui sert d'alibi : « on l'a fait » plutôt que « je l'ai fait ». Dans la narration, les glissements entre « il », « on » et « je » sont des indices.
+- **Échelle des transgressions :** petites et graduelles (mentir, sécher, entrer dans un lieu fermé, répondre aux harceleurs). Pas de crime grave. Aucune vengeance sans coût.
+- Il ne mesure pas le risque. Il l'entraîne vers des lieux interdits ou dangereux.
 
 ## 4. Personnages (noms provisoires)
 
@@ -40,10 +47,12 @@ Le texte ne condamne pas Manon et ne présente pas son anxiété comme une faute
 - Désir : ne plus être seule sans avoir à risquer le regard des autres.
 - Peur : être « anormale », être moquée, qu'on lui retire ce qu'elle a.
 - Secret : elle sait qu'il n'est pas réel. Elle ne l'a jamais dit, même à elle-même.
+- Contradiction : elle déteste les gens sûrs d'eux, et voudrait être comme eux.
 - Voix : phrases courtes, précises, très attentive aux détails (sons, regards, heures), humour discret et gêné. Elle compte, elle découpe, elle chronomètre.
 
 **Noé**, 16 ans en apparence, l'ami imaginaire.
-- Doux, drôle, patient. Remplit exactement les manques de Manon.
+- Sûr de lui, drôle, à l'aise avec tout le monde (en apparence), insolent. Remplit exactement ce qui manque à Manon, et c'est ce qu'elle déteste chez les autres.
+- Toujours de son côté. Pour la société, il est discutable : il l'incite à transgresser.
 - Évolution : de refuge à miroir, puis à pression.
 - Physique : cheveux dans trois directions, sweat gris aux manches trop longues, sourire d'un seul côté.
 
@@ -62,8 +71,8 @@ Le texte ne condamne pas Manon et ne présente pas son anxiété comme une faute
 
 1. **La cafétéria.** Elle mange seule. Il demande « La place est libre ? ». Banal en apparence.
 2. **L'amitié.** Trajets, devoirs, rires. Elle parle plus qu'avant. Premiers indices minuscules.
-3. **Dehors.** Week-end, ville ou parc. Il n'apparaît sur aucune photo ; elle trouve une explication.
-4. **La fissure.** Sofia : « Tu parlais seule ? » Déni.
+3. **Dehors.** Week-end, ville ou parc. Première petite transgression « à deux ». Il n'apparaît sur aucune photo ; elle trouve une explication.
+4. **La fissure.** Une conséquence réelle de ses actes (remarque d'un adulte, Sofia : « Tu parlais seule ? »). Elle dit « on » plutôt que « je ». Déni.
 5. **Il change.** Il l'encourage à parler à Sofia. Elle se sent trahie.
 6. **La crise.** Confrontation. Noé s'éloigne (« tu n'as plus besoin de moi »). Elle le suit sans regarder. La scène s'arrête avant le détail.
 7. **Coda** *(courte, à valider)* : voix extérieure (Sofia ou autre) ou coupe nette.
@@ -82,15 +91,17 @@ Le texte ne condamne pas Manon et ne présente pas son anxiété comme une faute
 
 Contraintes proposées pour que la fin tienne avec les règles du monde :
 - **Noé ne la tue pas : c'est son déni.** Il est elle, il ne peut pas vouloir sa mort. Elle fait pour lui ce qu'elle ne ferait pas pour elle, parce qu'elle refuse de vérifier ce qui est réel.
-- **Mécanisme recommandé : accident né du déni.** Dans la crise, Noé s'éloigne ; elle le suit sans regarder ce qu'il y a devant elle (lui « peut » passer, pas elle). *(lieu à définir, à valider)*
+- **Mécanisme recommandé : accident né du déni.** Dans la crise, Noé s'éloigne ; elle le suit sans regarder ce qu'il y a devant elle (lui « peut » passer, pas elle). Piste : un lieu interdit ou dangereux où Noé l'a déjà entraînée. *(lieu à définir, à valider)*
 - **À éviter :** le suicide (contredit le thème : elle ne veut pas mourir, elle veut ne pas le perdre ; sujet à haut risque) ; Noé « démon » qui l'attire (contredit la règle, stigmatise).
 - **Pas de scène détaillée**, pas de glorification. La mort n'est présentée ni comme punition ni comme délivrance.
 - Les autres ont leur part : personne n'a remarqué.
 
 ## 9. Questions ouvertes
 
-1. Mécanisme et lieu de l'accident.
-2. Coda : voix extérieure ou coupe nette ?
-3. Présent ou passé ? (recommandé : présent)
-4. Longueur : 2 500 à 3 500 mots ?
-5. Titre définitif, noms définitifs.
+1. Quelles transgressions exactement, et jusqu'où ?
+2. Noé la défend-il contre ceux qui la harcèlent, et à quel coût ?
+3. Mécanisme et lieu de l'accident.
+4. Coda : voix extérieure ou coupe nette ?
+5. Présent ou passé ? (recommandé : présent)
+6. Longueur : 2 500 à 3 500 mots ?
+7. Titre définitif, noms définitifs.
