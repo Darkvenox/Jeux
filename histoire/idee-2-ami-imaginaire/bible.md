@@ -1,6 +1,6 @@
 # Bible de l'histoire — titre provisoire : « La place est libre ? »
 
-**Statut : BROUILLON v2.** Tout ce qui est marqué *(à valider)* est une proposition de Claude, pas une décision.
+**Statut : BROUILLON v3.** Tout ce qui est marqué *(à valider)* est une proposition de Claude, pas une décision.
 **Co-auteurs :** l'utilisateur (intention et décision finale sur le fond) et Claude (cohérence, objections, propositions).
 **Format visé :** nouvelle courte, 2 500 à 3 500 mots *(à valider)*.
 
@@ -34,12 +34,14 @@ Le texte ne condamne pas Manon et ne présente pas son anxiété comme une faute
 - Elle organise sa vie pour éviter toute épreuve de réalité (aucune photo, aucune présentation, aucune vérification). **Chaque évitement est un indice.**
 - Rien n'est jamais expliqué médicalement. Pas de diagnostic, pas de psychologue qui « explique ».
 - Ses justifications sont plausibles pour elle (« il est timide », « il n'aime pas les photos »), jamais absurdes.
-- Dans la seconde moitié, il devient moins confortable et la pousse vers de vraies personnes.
+- Dans la seconde moitié, il devient moins confortable : il l'éloigne de Sofia (la vraie main tendue) en poussant la vengeance. *(modifié en v3 : il ne la pousse plus vers les autres)*
 - **Noé est la personnification de ce que Manon voudrait être** (alter ego idéalisé, personnage séparé : elle lui parle, il répond). *(décidé)*
 - **Moralement :** il reste toujours du côté de Manon, mais il est discutable pour la société (transgressions).
 - **Logique clé :** Noé n'existe pas, donc ce qu'il « fait », c'est Manon qui le fait. Il lui sert d'alibi : « on l'a fait » plutôt que « je l'ai fait ». Dans la narration, les glissements entre « il », « on » et « je » sont des indices.
 - **Échelle des transgressions :** petites et graduelles (mentir, sécher, entrer dans un lieu fermé, répondre aux harceleurs). Pas de crime grave. Aucune vengeance sans coût.
 - Il ne mesure pas le risque. Il l'entraîne vers des lieux interdits ou dangereux.
+- **Ceux qui se moquent de Manon** ne sont pas des harceleurs violents : ils se foutent d'elle (rires, moqueries, regards). Ce ne sont pas des monstres, ils ne savent pas ce qu'ils provoquent. *(décidé)*
+- **La vengeance est conçue par Noé**, donc par Manon : c'est sa colère qu'elle n'ose pas s'avouer. Elle se déroule **la nuit sur un chantier**. *(décidé)*
 
 ## 4. Personnages (noms provisoires)
 
@@ -73,8 +75,8 @@ Le texte ne condamne pas Manon et ne présente pas son anxiété comme une faute
 2. **L'amitié.** Trajets, devoirs, rires. Elle parle plus qu'avant. Premiers indices minuscules.
 3. **Dehors.** Week-end, ville ou parc. Première petite transgression « à deux ». Il n'apparaît sur aucune photo ; elle trouve une explication.
 4. **La fissure.** Une conséquence réelle de ses actes (remarque d'un adulte, Sofia : « Tu parlais seule ? »). Elle dit « on » plutôt que « je ». Déni.
-5. **Il change.** Il l'encourage à parler à Sofia. Elle se sent trahie.
-6. **La crise.** Confrontation. Noé s'éloigne (« tu n'as plus besoin de moi »). Elle le suit sans regarder. La scène s'arrête avant le détail.
+5. **La vengeance.** Les moqueries montent (un fait précis). Noé propose un plan. Sofia lui tend la main au même moment ; Manon hésite, choisit Noé.
+6. **Le chantier, la nuit.** Elle prépare seule la vengeance. Noé est « devant ». Elle le suit sans regarder. La scène s'arrête avant le détail.
 7. **Coda** *(courte, à valider)* : voix extérieure (Sofia ou autre) ou coupe nette.
 
 ## 7. Registre des faits établis
@@ -91,7 +93,7 @@ Le texte ne condamne pas Manon et ne présente pas son anxiété comme une faute
 
 Contraintes proposées pour que la fin tienne avec les règles du monde :
 - **Noé ne la tue pas : c'est son déni.** Il est elle, il ne peut pas vouloir sa mort. Elle fait pour lui ce qu'elle ne ferait pas pour elle, parce qu'elle refuse de vérifier ce qui est réel.
-- **Mécanisme recommandé : accident né du déni.** Dans la crise, Noé s'éloigne ; elle le suit sans regarder ce qu'il y a devant elle (lui « peut » passer, pas elle). Piste : un lieu interdit ou dangereux où Noé l'a déjà entraînée. *(lieu à définir, à valider)*
+- **Mécanisme recommandé : accident né du déni.** Dans la crise, Noé s'éloigne ; elle le suit sans regarder ce qu'il y a devant elle (lui « peut » passer, pas elle). **Lieu décidé : un chantier, la nuit, dans le cadre de la vengeance.** *(déroulé exact à valider)*
 - **À éviter :** le suicide (contredit le thème : elle ne veut pas mourir, elle veut ne pas le perdre ; sujet à haut risque) ; Noé « démon » qui l'attire (contredit la règle, stigmatise).
 - **Pas de scène détaillée**, pas de glorification. La mort n'est présentée ni comme punition ni comme délivrance.
 - Les autres ont leur part : personne n'a remarqué.
@@ -99,8 +101,8 @@ Contraintes proposées pour que la fin tienne avec les règles du monde :
 ## 9. Questions ouvertes
 
 1. Quelles transgressions exactement, et jusqu'où ?
-2. Noé la défend-il contre ceux qui la harcèlent, et à quel coût ?
-3. Mécanisme et lieu de l'accident.
+2. Qui se moque d'elle (petit groupe avec un meneur, ou une personne ?) et pourquoi ?
+3. En quoi consiste la vengeance sur le chantier ? Options : A. le piège (leur faire peur, elle y va seule pour le préparer, recommandé), B. le défi retourné, C. l'humiliation.
 4. Coda : voix extérieure ou coupe nette ?
 5. Présent ou passé ? (recommandé : présent)
 6. Longueur : 2 500 à 3 500 mots ?
